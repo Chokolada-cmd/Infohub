@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Video Lessons | Institute of Mathematics</title>
+  <meta name="description" content="Watch maths video lessons from the Institute of Mathematics — algebra, geometry, trigonometry, calculus and exam preparation.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <link href="deepstyle.css" rel="stylesheet">
+
+  <!--
+  ================================================================
+   HOW TO ADD YOUR OWN VIDEOS
+  ================================================================
+   Every video block uses a data-video-id attribute. Replace the
+   placeholder IDs below with the ID from your YouTube link.
+
+   Example:  https://www.youtube.com/watch?v=M7lc1UVf-VE
+             The ID is  ->  M7lc1UVf-VE
+
+   The thumbnail loads automatically from YouTube, and the real
+   player only loads when the learner clicks play (fast page load).
+  ================================================================
+  -->
+
+  <style>
+    /* ============ VIDEO LIBRARY PAGE ONLY ============ */
+
+    /* --- Page hero --- */
+    .page-hero {
+      position: relative;
+      padding: 100px 0 78px;
+      text-align: center;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .page-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(760px 380px at 50% 0%, rgba(212, 175, 55, 0.13), transparent 65%),
+        linear-gradient(180deg, rgba(10, 34, 64, 0.85), rgba(5, 15, 31, 0.6));
+      pointer-events: none;
+    }
+
+    .page-hero .container {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+    }
+
+    .page-hero h1 { margin-bottom: 18px; }
+
+    .page-hero h1::after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 2px;
+      margin: 26px auto 0;
+      background: linear-gradient(90deg, transparent, var(--gold-500), transparent);
+    }
+
+    .page-hero p {
+      color: var(--ink-300);
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    /* --- Filter bar --- */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 54px;
+    }
+
+    .chip {
+      font-family: var(--font-body);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 11px 22px;
+      border-radius: 999px;
+      border: 1px solid var(--line-soft);
+      background: rgba(5, 15, 31, 0.4);
+      color: var(--ink-400);
+      cursor: pointer;
+      transition: all 0.28s var(--ease);
+    }
+
+    .chip:hover {
+      color: var(--gold-300);
+      border-color: var(--line);
+    }
+
+    .chip.active {
+      background: linear-gradient(135deg, var(--gold-400), var(--gold-500));
+      border-color: var(--gold-500);
+      color: var(--navy-900);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .chip:focus-visible {
+      outline: 2px solid var(--gold-400);
+      outline-offset: 3px;
+    }
+
+    /* --- Shared video frame --- */
+    .video-frame {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: var(--navy-600);
+      cursor: pointer;
+    }
+
+    .video-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s var(--ease);
+    }
+
+    .video-frame:hover img {
+      transform: scale(1.05);
+    }
+
+    .video-frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(5, 15, 31, 0.1) 0%, rgba(5, 15, 31, 0.55) 100%);
+      transition: opacity 0.35s var(--ease);
+      pointer-events: none;
+    }
+
+    .video-frame:hover::after {
+      opacity: 0.6;
+    }
+
+    .video-frame.is-playing::after,
+    .video-frame.is-playing:hover img { display: none; }
+
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      z-index: 3;
+    }
+
+    /* Play button */
+    .video-play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 2;
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+      width: 72px;
+      height: 72px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-400), var(--gold-500));
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), var(--shadow-gold);
+      cursor: pointer;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    }
+
+    .video-play svg {
+      width: 26px;
+      height: 26px;
+      fill: var(--navy-900);
+      margin-left: 4px;
+    }
+
+    .video-frame:hover .video-play {
+      transform: translate(-50%, -50%) scale(1.1);
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.5), 0 14px 40px rgba(212, 175, 55, 0.4);
+    }
+
+    .video-play:focus-visible {
+      outline: 2px solid var(--ink-100);
+      outline-offset: 4px;
+    }
+
+    /* Duration pill */
+    .video-duration {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      z-index: 2;
+      padding: 4px 10px;
+      border-radius: 5px;
+      background: rgba(5, 15, 31, 0.85);
+      border: 1px solid var(--line-soft);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--ink-100);
+    }
+
+    /* --- Featured video --- */
+    .featured {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 0;
+      margin-bottom: 64px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, var(--navy-700), var(--navy-800));
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .featured-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 42px 38px;
+    }
+
+    .featured-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-start;
+      margin-bottom: 18px;
+      padding: 6px 15px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(212, 175, 55, 0.08);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-400);
+    }
+
+    .featured-tag::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold-500);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    }
+
+    .featured-info h2 {
+      font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+      margin-bottom: 14px;
+    }
+
+    .featured-info p {
+      font-size: 0.96rem;
+      color: var(--ink-400);
+      margin-bottom: 26px;
+    }
+
+    .featured-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line-soft);
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-500);
+    }
+
+    .featured-meta span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .featured-meta b {
+      color: var(--gold-400);
+      font-weight: 600;
+    }
+
+    /* --- Video grid --- */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+    }
+
+    .video-card {
+      display: flex;
+      flex-direction: column;
+      border-radius: var(--radius);
+      border: 1px solid var(--line-soft);
+      background: linear-gradient(180deg, var(--navy-700), var(--navy-800));
+      overflow: hidden;
+      transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    }
+
+    .video-card:hover {
+      transform: translateY(-7px);
+      border-color: var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .video-card .video-body {
+      padding: 22px 22px 26px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .video-cat {
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-400);
+      margin-bottom: 10px;
+    }
+
+    .video-card h3 {
+      font-size: 1.02rem;
+      line-height: 1.4;
+      margin-bottom: 10px;
+      color: var(--ink-100);
+    }
+
+    .video-card p {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--ink-400);
+      margin: 0;
+    }
+
+    /* Hidden by filter */
+    .is-hidden { display: none !important; }
+
+    /* --- Channel CTA --- */
+    .channel-cta {
+      position: relative;
+      padding: 52px 48px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.11), rgba(14, 43, 77, 0.55));
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 34px;
+      flex-wrap: wrap;
+    }
+
+    .channel-cta::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(480px 260px at 88% 0%, rgba(212, 175, 55, 0.16), transparent 68%);
+      pointer-events: none;
+    }
+
+    .channel-cta > * { position: relative; z-index: 1; }
+
+    .channel-cta h2 {
+      font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+      margin-bottom: 10px;
+    }
+
+    .channel-cta p {
+      margin: 0;
+      max-width: 520px;
+      font-size: 0.96rem;
+      color: var(--ink-300);
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 1024px) {
+      .video-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .featured { grid-template-columns: 1fr; }
+
+      .featured-info { padding: 34px 30px; }
+    }
+
+    @media (max-width: 900px) {
+      .page-hero { padding: 76px 0 60px; }
+
+      .channel-cta { flex-direction: column; align-items: flex-start; padding: 40px 32px; }
+    }
+
+    @media (max-width: 620px) {
+      .video-grid { grid-template-columns: 1fr; }
+
+      .filter-bar { gap: 8px; margin-bottom: 40px; }
+
+      .chip { padding: 9px 16px; font-size: 0.68rem; }
+
+      .video-play { width: 58px; height: 58px; }
+      .video-play svg { width: 21px; height: 21px; }
+
+      .featured-info { padding: 28px 24px; }
+
+      .cta-actions { width: 100%; }
+      .cta-actions .btn { width: 100%; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .video-frame:hover img,
+      .video-card:hover,
+      .video-frame:hover .video-play { transform: none; }
+      .video-frame:hover .video-play { transform: translate(-50%, -50%); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ======================= HEADER ======================= -->
+  <header class="site-header">
+    <div class="container nav-wrap">
+
+      <a class="brand" href="index.html">
+        <span class="brand-mark">IM</span>
+        <span class="brand-text">
+          <span class="brand-name">Institute of Mathematics</span>
+          <span class="brand-sub">Maths · Physics · Accounting</span>
+        </span>
+      </a>
+
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-burger" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </label>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="maths.html" class="active">Maths</a>
+        <a href="science.html">Physics</a>
+        <a href="accounting.html">Accounting</a>
+        <a href="products.html">Products</a>
+        <a href="login.html" class="nav-cta">Login</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- ======================= PAGE HERO ======================= -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker">Video Library</span>
+      <h1>Learn Maths on Video</h1>
+      <p>
+        Work through every topic at your own pace. Watch a lesson, pause, rewind,
+        and practise until it clicks — then move on with confidence.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================= VIDEO LIBRARY ======================= -->
+  <section class="section">
+    <div class="container">
+
+      <!-- Filter chips -->
+      <div class="filter-bar" role="group" aria-label="Filter videos by topic">
+        <button class="chip active" type="button" data-filter="all">All Lessons</button>
+        <button class="chip" type="button" data-filter="algebra">Algebra</button>
+        <button class="chip" type="button" data-filter="geometry">Geometry</button>
+        <button class="chip" type="button" data-filter="trigonometry">Trigonometry</button>
+        <button class="chip" type="button" data-filter="calculus">Calculus</button>
+        <button class="chip" type="button" data-filter="exam">Exam Prep</button>
+      </div>
+
+      <!-- ---------- FEATURED ---------- -->
+      <article class="featured" data-category="algebra">
+
+        <div class="video-frame" data-video-id="M7lc1UVf-VE">
+          <img
+            src="https://i.ytimg.com/vi/M7lc1UVf-VE/hqdefault.jpg"
+            alt=""
+            loading="lazy"
+            decoding="async">
+          <button class="video-play" type="button" aria-label="Play: Solving Quadratic Equations">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <span class="video-duration">18:24</span>
+        </div>
+
+        <div class="featured-info">
+          <span class="featured-tag">Featured Lesson</span>
+          <h2>Solving Quadratic Equations — Full Lesson</h2>
+          <p>
+            Factorising, completing the square and the quadratic formula, explained
+            step by step with worked examples you can follow along with.
+          </p>
+          <div class="featured-meta">
+            <span><b>Algebra</b></span>
+            <span>Grade 10 – 12</span>
+            <span>18 min</span>
+          </div>
+        </div>
+
+      </article>
+
+      <!-- ---------- GRID ---------- -->
+      <div class="video-grid">
+
+        <!-- 1 -->
+        <article class="video-card" data-category="algebra">
+          <div class="video-frame" data-video-id="M7lc1UVf-VE">
+            <img src="https://i.ytimg.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+            <button class="video-play" type="button" aria-label="Play: Simplifying Algebraic Expressions">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <span class="video-duration">12:06</span>
+          </div>
+          <div class="video-body">
+            <span class="video-cat">Algebra</span>
+            <h3>Simplifying Algebraic Expressions</h3>
+            <p>Group like terms, handle constants, and simplify with confidence.</p>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="video-card" data-category="algebra">
+          <div class="video-frame" data-video-id="M7lc1UVf-VE">
+            <img src="https://i.ytimg.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+            <button class="video-play" type="button" aria-label="Play: Factorising Trinomials Step by Step">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <span class="video-duration">15:42</span>
+          </div>
+          <div class="video-body">
+            <span class="video-cat">Algebra</span>
+            <h3>Factorising Trinomials Step by Step</h3>
+            <p>The method that works every time — from simple cases to tricky ones.</p>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="video-card" data-category="algebra">
+          <div class="video-frame" data-video-id="M7lc1UVf-VE">
+            <img src="https://i.ytimg.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+            <button class="video-play" type="button" aria-label="Play: Equations with Fractions">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <span class="video-duration">14:18</span>
+          </div>
+          <div class="video-body">
+            <span class="video-cat">Algebra</span>
+            <h3>Equations with Fractions</h3>
+            <p>Find the LCD and clear fractions cleanly — no more messy working.</p>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="video-card" data-category="geometry">
+          <div class="video-frame" data-video-id="M7lc1UVf-VE">
+            <img src="https://i.ytimg.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+            <button class="video-play" type="button" aria-label="Play: Circle Geometry Theorems">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <span class="video-duration">21:35</span>
+          </div>
+          <div class="video-body">
+            <span class="video-cat">Geometry</span>
+            <h3>Circle Geometry: Theorems You Must Know</h3>
+            <p>Every circle theorem, drawn out and explained with proofs.</p>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="video-card" data-category="geometry">
+          <div class="video-frame" data-video-id="M7lc1UVf-VE">
+            <img src="https://i.ytimg.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+            <button class="video-play" type="button" aria-label="Play: Similar Triangles Explained">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <span class="video-duration">11:50</span>
+          </div>
+          <div class="video-body">
+            <span class="video-cat">Geometry</span>
+            <h3>Similar Triangles Explained</h3>
+            <p>Prove similarity, find unknown sides, and avoid the classic traps.</p>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="video-card" data-category="trigonometry">
+          <div class="video-frame" data-video-id="M7lc1UVf-VE">
+            <img src="https://i.ytimg.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+            <button class="video-play" type="button" aria-label="Play: Trig Ratios SOH CAH TOA">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <span class="video-duration">13:27</span>
+          </div>
+          <div class="video-body">
+            <span class="video-cat">Trigonometry</span>
+            <h3>Trig Ratios: SOH CAH TOA</h3>
+            <p>Build the foundation — sine, cosine and tangent from first principles.</p>
+          </div>
+        </article>
+
+             <!-- 7 -->
+        <article class="video-card" data-category="trigonometry">
+          <div class="video-frame" data-video-id="M7lc1UVf-VE">
+            <img src="https://i.ytimg.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+            <button class="video-play" type="button" aria-label="Play: Reduction Formulae Made Simple">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <span class="video-duration">17:09</span>
+          </div>
+          <div class="video-body">
+            <span class="video-cat">Trigonometry</span>
+            <h3>Reduction Formulae Made Simple</h3>
+            <p>Reduce any angle to an acute angle — the easy, reliable way.</p>
+          </div>
+        </article>
+
+        <!-- 8 -->
+        <article class="video-card" data-category="calculus">
+          <div class="video-frame" data-video-id="M7lc1UVf-VE">
+            <img src="https://i.ytimg.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+            <button class="video-play" type="button" aria-label="Play: Introduction to Differentiation">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <span class="video-duration">19:44</span>
+          </div>
+          <div class="video-body">
+            <span class="video-cat">Calculus</span>
+            <h3>Introduction to Differentiation</h3>
+            <p>What a derivative actually means, and how to find it from first principles.</p>
+          </div>
+        </article>
+
+        <!-- 9 -->
+        <article class="video-card" data-category="exam">
+          <div class="video-frame" data-video-id="M7lc1UVf-VE">
+            <img src="https://i.ytimg.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+            <button class="video-play" type="button" aria-label="Play: Exam Paper Walkthrough">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <span class="video-duration">32:15</span>
+          </div>
+          <div class="video-body">
+            <span class="video-cat">Exam Prep</span>
+            <h3>Exam Paper Walkthrough: Paper 1</h3>
+            <p>A full past paper solved in real time, with examiner thinking explained.</p>
+          </div>
+        </article>
+
+        <!-- 10 -->
+        <article class="video-card" data-category="exam">
+          <div class="video-frame" data-video-id="M7lc1UVf-VE">
+            <img src="https://i.ytimg.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+            <button class="video-play" type="button" aria-label="Play: Common Exam Mistakes">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <span class="video-duration">09:58</span>
+          </div>
+          <div class="video-body">
+            <span class="video-cat">Exam Prep</span>
+            <h3>Common Exam Mistakes to Avoid</h3>
+            <p>The small errors that cost big marks — and how to stop making them.</p>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================= CHANNEL CTA ======================= -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="channel-cta">
+        <div>
+          <span class="kicker">Never Miss a Lesson</span>
+          <h2>Subscribe to the Institute Channel</h2>
+          <p>
+            New maths lessons are uploaded every week. Subscribe and turn on
+            notifications so you never fall behind.
+          </p>
+        </div>
+        <div class="cta-actions">
+          <a
+            href="https://www.youtube.com/@imathinstitute"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-gold">Subscribe on YouTube</a>
+          <a href="courses.html" class="btn btn-ghost">View Courses</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= FOOTER ======================= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">IM</span>
+          <span class="brand-text">
+            <span class="brand-name">Institute of Mathematics</span>
+            <span class="brand-sub">Maths · Physics · Accounting</span>
+          </span>
+        </a>
+        <p class="footer-tagline">
+          Guiding every student to excel — in results, and in mindset.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="maths.html">Maths</a></li>
+          <li><a href="science.html">Physics</a></li>
+          <li><a href="accounting.html">Accounting</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Programme</h4>
+        <ul>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="activity.html">Daily Activities</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="products.html">Products</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul class="social-list">
+          <li><a href="https://www.facebook.com/imathinstitute" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://www.twitter.com/imathinstitute" target="_blank" rel="noopener">Twitter</a></li>
+          <li><a href="https://www.instagram.com/imathinstitute" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© 2023 Institute of Mathematics. All rights reserved.</p>
+      <p class="footer-script">Follow us on socials</p>
+    </div>
+  </footer>
+
+  <!-- ======================= VIDEO SCRIPT ======================= -->
+  <script>
+    (function () {
+      "use strict";
+
+      /* ---------- 1. Lazy YouTube loading ----------
+         The thumbnail shows instantly. The real player only loads
+         when the learner clicks — keeps the page fast. */
+      var frames = document.querySelectorAll(".video-frame");
+
+      frames.forEach(function (frame) {
+        frame.addEventListener("click", function () {
+          if (frame.classList.contains("is-playing")) return;
+
+          var id = frame.getAttribute("data-video-id");
+          if (!id) return;
+
+          var playBtn = frame.querySelector(".video-play");
+          var label = playBtn ? playBtn.getAttribute("aria-label") || "Video lesson" : "Video lesson";
+
+          var iframe = document.createElement("iframe");
+          iframe.src = "https://www.youtube.com/embed/" + id +
+                       "?autoplay=1&rel=0&modestbranding=1";
+          iframe.title = label;
+          iframe.setAttribute("allow",
+            "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
+          iframe.setAttribute("allowfullscreen", "");
+
+          frame.appendChild(iframe);
+          frame.classList.add("is-playing");
+        });
+      });
+
+      /* ---------- 2. Topic filtering ---------- */
+      var chips = document.querySelectorAll(".chip");
+      var items = document.querySelectorAll("[data-category]");
+
+      chips.forEach(function (chip) {
+        chip.addEventListener("click", function () {
+          var filter = chip.getAttribute("data-filter");
+
+          chips.forEach(function (c) { c.classList.remove("active"); });
+          chip.classList.add("active");
+
+          items.forEach(function (item) {
+            var match = (filter === "all") ||
+                        (item.getAttribute("data-category") === filter);
+            item.classList.toggle("is-hidden", !match);
+          });
+        });
+      });
+
+    })();
+  </script>
+
+</body>
+</html>

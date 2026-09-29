@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Salutations | Institute of Mathematics</title>
+  <meta name="description" content="Your AI Tutor dashboard — track progress, continue lessons and ask your tutor anything.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <link href="deepstyle.css" rel="stylesheet">
+
+  <!-- ===== Dashboard-only additions (kept minimal) ===== -->
+  <style>
+    /* --- Greeting --- */
+    .dash-head { padding: 64px 0 0; }
+    .dash-head-inner {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .dash-head h1 {
+      font-size: clamp(1.7rem, 3.4vw, 2.3rem);
+      margin-bottom: 6px;
+    }
+    .dash-sub {
+      margin: 0;
+      font-size: 0.96rem;
+      color: var(--ink-400);
+    }
+
+    /* --- Stat strip (reuses .stats-grid / .stat) --- */
+    .stats-strip { margin-top: 44px; }
+
+    /* --- Two-column layout --- */
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 26px;
+      align-items: start;
+    }
+
+    /* --- Panel --- */
+    .panel {
+      padding: 26px;
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(14, 43, 77, 0.55), rgba(7, 26, 51, 0.55));
+    }
+    .panel + .panel { margin-top: 26px; }
+
+    .panel-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .panel-head h2 {
+      font-size: 1.05rem;
+      margin: 0;
+    }
+    .panel-head a {
+      font-size: 0.76rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-500);
+    }
+    .panel-head a:hover { color: var(--gold-300); }
+
+    /* --- Course rows --- */
+    .course-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .course-row:last-child { border-bottom: 0; padding-bottom: 0; }
+    .course-row:first-child { padding-top: 0; }
+
+    .course-icon {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: rgba(212, 175, 55, 0.07);
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--gold-400);
+    }
+
+    .course-meta { flex: 1; min-width: 0; }
+    .course-meta h3 {
+      font-size: 0.96rem;
+      margin: 0 0 2px;
+    }
+    .course-meta .course-sub {
+      font-size: 0.78rem;
+      color: var(--ink-500);
+    }
+
+    .bar {
+      height: 4px;
+      margin-top: 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+    .bar span {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--gold-500), var(--gold-300));
+    }
+
+    .course-pct {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--gold-400);
+      flex-shrink: 0;
+    }
+
+    /* --- Ask tutor --- */
+    .ask {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .ask input {
+      flex: 1;
+      min-width: 0;
+      padding: 12px 18px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--ink-100);
+      background: rgba(5, 15, 31, 0.6);
+      border: 1px solid var(--line-soft);
+      border-radius: 999px;
+      transition: border-color 0.25s var(--ease);
+    }
+    .ask input::placeholder { color: var(--ink-500); }
+    .ask input:focus {
+      outline: none;
+      border-color: var(--gold-500);
+    }
+    .ask .btn { padding: 12px 24px; }
+
+    /* --- Plan list --- */
+    .plan {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 15px;
+    }
+    .plan li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: 0.92rem;
+      color: var(--ink-300);
+    }
+    .plan time {
+      flex-shrink: 0;
+      min-width: 56px;
+      padding-top: 2px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-500);
+    }
+    .plan p { margin: 0; }
+
+    /* --- Responsive --- */
+    @media (max-width: 1024px) {
+      .dash-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 780px) {
+      .dash-head { padding-top: 46px; }
+      .dash-head .btn { width: 100%; text-align: center; }
+      .stats-strip { margin-top: 32px; }
+      .panel { padding: 22px 20px; }
+      .ask { flex-direction: column; }
+      .ask .btn { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ======================= HEADER / NAV ======================= -->
+  <header class="site-header">
+    <div class="container nav-wrap">
+
+      <a class="brand" href="index.html">
+        <span class="brand-mark">IM</span>
+        <span class="brand-text">
+          <span class="brand-name">Institute of Mathematics</span>
+          <span class="brand-sub">Maths · Physics · Accounting</span>
+        </span>
+      </a>
+
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-burger" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </label>
+
+      <nav class="nav-links">
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="maths.html">Maths</a>
+        <a href="science.html">Physics</a>
+        <a href="accounting.html">Accounting</a>
+        <a href="products.html">Products</a>
+        <a href="login.html" class="nav-cta">Log out</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- ======================= GREETING ======================= -->
+  <section class="dash-head">
+    <div class="container dash-head-inner">
+      <div>
+        <span class="kicker">Dashboard</span>
+        <h1>Good evening, Thabo</h1>
+        <p class="dash-sub">2 lessons and 1 practice set are waiting for you.</p>
+      </div>
+      <a href="courses.html" class="btn btn-gold">Continue learning</a>
+    </div>
+  </section>
+
+  <!-- ======================= STATS ======================= -->
+  <section class="container stats-strip">
+    <div class="stats-grid">
+      <div class="stat">
+        <span class="stat-num">3</span>
+        <span class="stat-label">Active courses</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">12</span>
+        <span class="stat-label">Lessons completed</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">7</span>
+        <span class="stat-label">Day streak</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">78%</span>
+        <span class="stat-label">Average score</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= MAIN GRID ======================= -->
+  <section class="section">
+    <div class="container dash-grid">
+
+      <!-- ---------- LEFT: Continue learning ---------- -->
+      <div class="dash-main">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Continue learning</h2>
+            <a href="courses.html">View all</a>
+          </div>
+
+          <div class="course-row">
+            <span class="course-icon" aria-hidden="true">M</span>
+            <div class="course-meta">
+              <h3>Algebra — Quadratics</h3>
+              <span class="course-sub">Lesson 4 of 9</span>
+              <div class="bar"><span style="width: 44%"></span></div>
+            </div>
+            <span class="course-pct">44%</span>
+          </div>
+
+          <div class="course-row">
+            <span class="course-icon" aria-hidden="true">P</span>
+            <div class="course-meta">
+              <h3>Physics — Newton's Laws</h3>
+              <span class="course-sub">Lesson 6 of 8</span>
+              <div class="bar"><span style="width: 72%"></span></div>
+            </div>
+            <span class="course-pct">72%</span>
+          </div>
+
+          <div class="course-row">
+            <span class="course-icon" aria-hidden="true">A</span>
+            <div class="course-meta">
+              <h3>Accounting — Ledgers</h3>
+              <span class="course-sub">Lesson 2 of 10</span>
+              <div class="bar"><span style="width: 18%"></span></div>
+            </div>
+            <span class="course-pct">18%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------- RIGHT: Tutor + Plan ---------- -->
+      <aside class="dash-side">
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Ask your AI Tutor</h2>
+          </div>
+          <p style="font-size: 0.92rem; color: var(--ink-400); margin: 0;">
+            Stuck on a concept? Get a step-by-step explanation.
+          </p>
+
+          <form class="ask" onsubmit="return false;">
+            <label for="tutor-q" class="sr-only" style="position:absolute;left:-9999px;">Ask your AI tutor</label>
+            <input id="tutor-q" type="text" placeholder="e.g. Explain the quadratic formula">
+            <button type="submit" class="btn btn-gold">Ask</button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Today's plan</h2>
+          </div>
+
+          <ul class="plan">
+            <li>
+              <time>16:00</time>
+              <p>Quadratics — practice set 4</p>
+            </li>
+            <li>
+              <time>17:30</time>
+              <p>Newton's Laws — video lesson</p>
+            </li>
+            <li>
+              <time>19:00</time>
+              <p>Daily recall quiz (10 min)</p>
+            </li>
+          </ul>
+        </div>
+
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- ======================= FOOTER ======================= -->
+  <footer class="site-footer">
+    <div class="container footer-bottom" style="border-top: 0;">
+      <p>© 2023 Institute of Mathematics. All rights reserved.</p>
+      <p class="footer-script">Keep going</p>
+    </div>
+  </footer>
+
+</body>
+</html>
