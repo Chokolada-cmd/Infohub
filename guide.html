@@ -1,0 +1,235 @@
+<!-- ============ guide.html ============ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide — VUKA</title>
+<meta name="description" content="Check your eligibility, build your document pack, and know exactly what to expect.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" aria-label="VUKA home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">Vuka<em>.</em></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="index.html">Portal</a>
+      <a href="opportunities.html">Opportunities</a>
+      <a href="guide.html" class="is-active">Guide</a>
+    </nav>
+    <a href="#check" class="btn btn--gold header-cta">Check eligibility</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">The Guide</p>
+      <h1 class="display">Know before <em>you apply</em>.</h1>
+      <p class="lede">Six questions, six documents, one clear path. No account, no ID number, nothing stored against your name.</p>
+      <nav class="subnav">
+        <a href="#check">Eligibility</a>
+        <a href="#documents">Documents</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ── ELIGIBILITY CHECK ───────────────────────────── -->
+  <section class="section" id="check">
+    <div class="wrap wrap--narrow">
+      <header class="section-head section-head--left">
+        <p class="eyebrow">Step one</p>
+        <h2 class="display">Check yourself.</h2>
+        <p class="lede lede--sm">Answer honestly — nothing is transmitted, nothing is saved with your details. We only keep an anonymous count of how many checks were run.</p>
+      </header>
+
+      <form class="wizard" id="checkForm" novalidate>
+
+        <fieldset class="field">
+          <legend>How old are you?</legend>
+          <input type="number" id="age" name="age" min="14" max="60" placeholder="e.g. 23" required>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>Which province do you live in?</legend>
+          <div class="select-wrap">
+            <select id="province" name="province" required>
+              <option value="">Select a province</option>
+              <option>Gauteng</option>
+              <option>Western Cape</option>
+              <option>KwaZulu-Natal</option>
+              <option>Eastern Cape</option>
+              <option>Free State</option>
+              <option>Limpopo</option>
+              <option>Mpumalanga</option>
+              <option>North West</option>
+              <option>Northern Cape</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>Are you a South African citizen?</legend>
+          <div class="pills">
+            <label class="pill"><input type="radio" name="citizen" value="yes" checked><span>Yes</span></label>
+            <label class="pill"><input type="radio" name="citizen" value="no"><span>No</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>Are you currently employed?</legend>
+          <div class="pills">
+            <label class="pill"><input type="radio" name="employed" value="no" checked><span>No</span></label>
+            <label class="pill"><input type="radio" name="employed" value="yes"><span>Yes</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>Are you studying full-time?</legend>
+          <div class="pills">
+            <label class="pill"><input type="radio" name="studying" value="no" checked><span>No</span></label>
+            <label class="pill"><input type="radio" name="studying" value="yes"><span>Yes</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>Do you have a matric certificate?</legend>
+          <div class="pills">
+            <label class="pill"><input type="radio" name="matric" value="yes" checked><span>Yes</span></label>
+            <label class="pill"><input type="radio" name="matric" value="no"><span>No</span></label>
+          </div>
+        </fieldset>
+
+        <div class="wizard-actions">
+          <button type="submit" class="btn btn--gold">See my matches</button>
+          <button type="reset" class="btn btn--ghost" id="resetCheck">Reset</button>
+        </div>
+      </form>
+
+      <div class="results" id="results" hidden>
+        <div class="results-head">
+          <p class="eyebrow">Your results</p>
+          <h3 class="display display--sm" id="resultsTitle">—</h3>
+          <p class="lede lede--sm" id="resultsSub">—</p>
+        </div>
+
+        <div class="list" id="matchedList"></div>
+
+        <details class="near-miss" id="nearMissWrap" hidden>
+          <summary>Programmes that don't match — and why</summary>
+          <div class="list list--muted" id="unmatchedList"></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DOCUMENTS ───────────────────────────────────── -->
+  <section class="section section--alt" id="documents">
+    <div class="wrap wrap--narrow">
+      <header class="section-head section-head--left">
+        <p class="eyebrow">Step two</p>
+        <h2 class="display">Build your pack.</h2>
+        <p class="lede lede--sm">Most applications stall on paperwork, not on talent. Tick each item as you get it — your progress is saved on this device only.</p>
+      </header>
+
+      <ul class="checklist" id="documentList"></ul>
+
+      <div class="checklist-foot">
+        <span class="progress-label"><span id="docProgress">0 of 6 ready</span></span>
+        <div class="progress"><span id="docBar"></span></div>
+        <button class="link-btn" id="clearDocs">Clear my ticks</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ─────────────────────────────────────────── -->
+  <section class="section" id="faq">
+    <div class="wrap wrap--narrow">
+      <header class="section-head section-head--left">
+        <p class="eyebrow">Step three</p>
+        <h2 class="display">Questions, answered plainly.</h2>
+      </header>
+
+      <div class="accordion">
+        <details>
+          <summary>Do I have to pay anything?</summary>
+          <p>No. Every programme listed here is free to apply for. If anyone asks you for a fee to secure a placement, learnership or grant, it is a scam — walk away and report it.</p>
+        </details>
+        <details>
+          <summary>Why do you link away instead of taking my application?</summary>
+          <p>Because the official source is the only place your application is safe. We are a directory, not a middleman. Your ID number, name and phone number should only ever go to the provider itself.</p>
+        </details>
+        <details>
+          <summary>What does "rolling" mean?</summary>
+          <p>The programme accepts applications on an ongoing basis rather than within a fixed window. "Open" means there is a closing date — you'll see it on the card. "Unknown" means we couldn't confirm the window, so check the source page.</p>
+        </details>
+        <details>
+          <summary>What is a certified copy, and where do I get one?</summary>
+          <p>A photocopy stamped and signed by a Commissioner of Oaths. Any police station or post office does it free of charge. Bring the original and the copy. Certifications are usually valid for three months.</p>
+        </details>
+        <details>
+          <summary>I don't have matric. Is it over for me?</summary>
+          <p>No. Some programmes mark matric as "preferred", not "required", and platforms like SA Youth are open regardless. Skills programmes and learnerships also accept candidates without matric — check each advert's requirements.</p>
+        </details>
+        <details>
+          <summary>How is my information handled?</summary>
+          <p>The eligibility check runs entirely in your browser. Nothing is sent anywhere. We record only anonymous counts — an age band, a province and a matched/not-matched flag — never an ID number, name or phone number.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap cta-inner">
+      <h2 class="display">Ready when you are.</h2>
+      <a href="opportunities.html" class="btn btn--gold">See what's open</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-text">Vuka<em>.</em></span>
+        </a>
+        <p class="footer-note">A portal for information and a hub for potential. Built for the youth of South Africa.</p>
+      </div>
+      <div>
+        <p class="footer-label">Navigate</p>
+        <a href="index.html">Portal</a>
+        <a href="opportunities.html">Opportunities</a>
+        <a href="guide.html">Guide</a>
+      </div>
+      <div>
+        <p class="footer-label">Good to know</p>
+        <a href="guide.html#check">Eligibility check</a>
+        <a href="guide.html#documents">Document checklist</a>
+        <a href="guide.html#faq">FAQ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Vuka. All listings link to their official source.</span>
+      <span>POPIA-conscious: no ID numbers, names or phone numbers are ever stored.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

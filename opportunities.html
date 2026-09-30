@@ -1,0 +1,124 @@
+<!-- ============ opportunities.html ============ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opportunities — VUKA</title>
+<meta name="description" content="Verified work experience, learnerships, training and funding for South African youth.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" aria-label="VUKA home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">Vuka<em>.</em></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="index.html">Portal</a>
+      <a href="opportunities.html" class="is-active">Opportunities</a>
+      <a href="guide.html">Guide</a>
+    </nav>
+    <a href="guide.html#check" class="btn btn--gold header-cta">Check eligibility</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">The Hub</p>
+      <h1 class="display">Every listing, <em>one source</em>.</h1>
+      <p class="lede">Each programme below links directly to its official page. Nothing is resold, nothing is charged. Filters are yours — use them.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+
+      <div class="filters" id="filters">
+        <div class="filter-row">
+          <span class="filter-label">Category</span>
+          <div class="chips" id="categoryChips">
+            <button class="chip is-on" data-filter="category" data-value="all">All</button>
+            <button class="chip" data-filter="category" data-value="work_experience">Work experience</button>
+            <button class="chip" data-filter="category" data-value="learnership">Learnerships</button>
+            <button class="chip" data-filter="category" data-value="internship">Internships</button>
+            <button class="chip" data-filter="category" data-value="training">Training</button>
+            <button class="chip" data-filter="category" data-value="funding">Funding</button>
+            <button class="chip" data-filter="category" data-value="platform">Platforms</button>
+          </div>
+        </div>
+        <div class="filter-row">
+          <span class="filter-label">Area</span>
+          <div class="chips" id="scopeChips">
+            <button class="chip is-on" data-filter="scope" data-value="all">All</button>
+            <button class="chip" data-filter="scope" data-value="national">National</button>
+            <button class="chip" data-filter="scope" data-value="gauteng">Gauteng</button>
+            <button class="chip" data-filter="scope" data-value="ekurhuleni">Ekurhuleni</button>
+            <button class="chip" data-filter="scope" data-value="johannesburg">Johannesburg</button>
+          </div>
+        </div>
+        <div class="filter-row filter-row--last">
+          <label class="search">
+            <span class="visually-hidden">Search programmes</span>
+            <input type="search" id="search" placeholder="Search by name, provider or skill…" autocomplete="off">
+          </label>
+          <span class="result-count" id="resultCount"></span>
+        </div>
+      </div>
+
+      <div class="list" id="opportunityGrid"></div>
+
+      <p class="empty" id="emptyState" hidden>No programmes match those filters. Try widening your search.</p>
+
+      <p class="disclaimer">
+        Listings are checked against their official source on the date shown on each card.
+        Always confirm requirements on the source page before applying — we never ask for payment or your ID number.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-text">Vuka<em>.</em></span>
+        </a>
+        <p class="footer-note">A portal for information and a hub for potential. Built for the youth of South Africa.</p>
+      </div>
+      <div>
+        <p class="footer-label">Navigate</p>
+        <a href="index.html">Portal</a>
+        <a href="opportunities.html">Opportunities</a>
+        <a href="guide.html">Guide</a>
+      </div>
+      <div>
+        <p class="footer-label">Good to know</p>
+        <a href="guide.html#check">Eligibility check</a>
+        <a href="guide.html#documents">Document checklist</a>
+        <a href="guide.html#faq">FAQ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Vuka. All listings link to their official source.</span>
+      <span>POPIA-conscious: no ID numbers, names or phone numbers are ever stored.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
