@@ -1,450 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Institute of Mathematics | Paradigm Shifting</title>
-  <meta name="description" content="The Institute of Mathematics — a 6-week paradigm shifting programme in Maths, Physics and Accounting. Every student can excel.">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link href="style.css" rel="stylesheet">
-  <link href="deepstyle.css" rel="stylesheet">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start your circle — Sisonke Life Experience Stokvel</title>
+<meta name="description" content="Create your Sisonke life experience stokvel. Choose your circle, set your monthly contribution, and start saving for memories across South Africa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='42' fill='%23D4A537'/%3E%3C/svg%3E">
 </head>
-
 <body>
 
-  <!-- ======================= HEADER / NAV ======================= -->
-  <header class="site-header">
-    <div class="container nav-wrap">
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href="index.html">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="21" stroke="url(#bgy)" stroke-width="1.2" opacity=".55"/>
+          <circle cx="22" cy="17" r="6.5" fill="url(#bgy)"/>
+          <path d="M4 33c4.5-5 9-7.5 13.4-7.5 4.3 0 7 2.4 9.4 5.2 1.9 2.2 3.6 3.6 6.2 3.6 2.6 0 5-1.4 7-4.1" stroke="url(#bgy)" stroke-width="1.8" stroke-linecap="round"/>
+          <defs><linearGradient id="bgy" x1="0" y1="0" x2="44" y2="44"><stop stop-color="#F0CB6B"/><stop offset="1" stop-color="#C0872A"/></linearGradient></defs>
+        </svg>
+      </span>
+      <span class="brand__text"><strong>SISONKE</strong><small>Life Experience Stokvel</small></span>
+    </a>
+    <nav class="nav__links" id="navLinks" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="index.html#shift">The Shift</a>
+      <a href="experiences.html">Experiences</a>
+      <a href="signup.html" class="btn btn--gold nav__cta">Start your circle</a>
+    </nav>
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+  </div>
+</header>
 
-      <a class="brand" href="index.html">
-        <span class="brand-mark">IM</span>
-        <span class="brand-text">
-          <span class="brand-name">Institute of Mathematics</span>
-          <span class="brand-sub">Maths · Physics · Accounting</span>
-        </span>
-      </a>
+<main>
 
-      <input type="checkbox" id="nav-toggle" class="nav-toggle">
-      <label for="nav-toggle" class="nav-burger" aria-hidden="true">
-        <span></span><span></span><span></span>
-      </label>
+<!-- PAGE HERO -->
+<section class="phero grain">
+  <div class="wrap phero__inner">
+    <span class="eyebrow" data-reveal>Start your circle</span>
+    <h1 data-reveal style="--d:.08s">Turn your stokvel<br>into a <em>life experience</em>.</h1>
+    <p data-reveal style="--d:.16s">
+      Two minutes to set up. No debit orders until your circle is full. Free to start,
+      no lock-in, and you keep every memory. Let's build something your family talks
+      about for years — not just at funerals.
+    </p>
+  </div>
+</section>
 
-      <nav class="nav-links">
-        <a href="index.html" class="active">Home</a>
-        <a href="register.html">sign-up</a>
-        <a href="login.html" class="nav-cta">Login</a>
-      </nav>
+<!-- SIGNUP -->
+<section class="signup">
+  <div class="wrap signup__grid">
 
-    </div>
-  </header>
+    <!-- FORM -->
+    <div class="form-card" data-reveal>
+      <h2>Create your circle</h2>
+      <p>Fill in your details. We'll send you a link to invite the rest of your circle.</p>
 
-  <!-- ======================= HERO ======================= -->
-  <section class="hero">
-    <div class="hero-inner container">
-      <p class="eyebrow">Paradigm Shifting &nbsp;·&nbsp; 6-Week Programme</p>
+      <form id="signupForm" novalidate>
 
-      <h1>Welcome to Your Journey<br>in Learning</h1>
-
-      <p class="hero-lead">
-        At the Institute of Mathematics, we believe every student has the ability to excel
-        in Maths, Science and Accounting. Let us guide you on your educational journey.
-      </p>
-
-      <div class="hero-actions">
-        <a href="courses.html" class="btn btn-gold">Explore Courses</a>
-        <a href="products.html" class="btn btn-ghost">View Products</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================= STATS ======================= -->
-  <section class="stats">
-    <div class="container stats-grid">
-      <div class="stat">
-        <span class="stat-num">6</span>
-        <span class="stat-label">Week training programme</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num">6</span>
-        <span class="stat-label">Higher mental faculties</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num">1:1</span>
-        <span class="stat-label">Personalised feedback</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num">Top 10</span>
-        <span class="stat-label">Achiever mindset</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================= PARADIGM SHIFTING ======================= -->
-  <section class="section" id="paradigm">
-    <div class="container narrow">
-      <div class="section-head">
-        <span class="kicker">The Programme</span>
-        <h2>Paradigm Shifting</h2>
-        <p class="lead">We provide a 6-week training programme that changes how a student sees, thinks and performs.</p>
-      </div>
-
-      <div class="prose">
-        <p>
-          <strong>What is a paradigm shift?</strong> It is a change in the student's perspective.
-        </p>
-        <p>
-          At the Institute of Mathematics we hold a firm belief that for rapid change in results,
-          there must first be a change in how you see reality. We want to change your perspective on
-          how we learn and input information — not through our eyes and ears alone, but through our
-          intuition and imagination.
-        </p>
-        <p>
-          Beyond seeing, hearing and studying, there are higher faculties that students must observe
-          and manipulate in order to succeed. The six higher faculties are <em>Reason, Imagination,
-          Intuition, Perception, Memory and Will</em>. The most important faculty on the journey to
-          success is <strong>Imagination</strong>. With imagination the world was created. Religious
-          books tell us man was created in God's image — and what is this image? It is the imagination
-          of God. We carry the same power and spirit within us.
-        </p>
-        <p>
-          Imagine yourself a top achiever. Imagine yourself great. See yourself in the mind, picture
-          greatness, be a visionary. We will teach you how to exercise this mental faculty. We plant
-          pictures into your mind: see yourself achieving distinctions in most subjects, picture
-          yourself receiving that award at school for high marks, see yourself as a Top 10 learner in
-          your grade. Imagine yourself smashing each and every test and exam.
-        </p>
-        <p class="prose-emphasis">
-          We also teach you how to set goals and achieve them. We believe you are a goal creator.
-        </p>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="faculties">
-        <article class="faculty">
-          <span class="faculty-num">01</span>
-          <h3>Reason</h3>
-          <p>The power to think logically, order your thoughts and build sound arguments.</p>
-        </article>
-        <article class="faculty">
-          <span class="faculty-num">02</span>
-          <h3>Imagination</h3>
-          <p>The faculty that pictures the future before it exists — your vision engine.</p>
-        </article>
-        <article class="faculty">
-          <span class="faculty-num">03</span>
-          <h3>Intuition</h3>
-          <p>The quiet inner knowing that guides decisions before the proof arrives.</p>
-        </article>
-        <article class="faculty">
-          <span class="faculty-num">04</span>
-          <h3>Perception</h3>
-          <p>How you see a problem determines the solution you are able to find.</p>
-        </article>
-        <article class="faculty">
-          <span class="faculty-num">05</span>
-          <h3>Memory</h3>
-          <p>Deliberate recall that turns what you study into what you truly own.</p>
-        </article>
-        <article class="faculty">
-          <span class="faculty-num">06</span>
-          <h3>Will</h3>
-          <p>The discipline to keep moving long after motivation has faded.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================= FEATURE CARDS ======================= -->
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-head">
-        <span class="kicker">What We Offer</span>
-        <h2>Built for Distinctions</h2>
-      </div>
-
-      <div class="card-grid">
-
-        <article class="card">
-          <div class="card-media">
-            <img src="images/uniform.jpg" alt="Institute of Mathematics uniform" loading="lazy">
+        <div class="form-row">
+          <div class="field">
+            <label for="circleName">Circle name</label>
+            <input id="circleName" name="circleName" type="text" placeholder="e.g. The Mabaso Family Circle" required>
           </div>
-          <div class="card-body">
-            <h3>Uniform</h3>
-            <p>Wear the standard. Premium Institute of Mathematics apparel and study kit.</p>
-            <a href="products.html" class="btn btn-outline">Shop Uniform</a>
+          <div class="field">
+            <label for="fullName">Your full name</label>
+            <input id="fullName" name="fullName" type="text" placeholder="e.g. Thandi Mokoena" required>
           </div>
-        </article>
-
-        <article class="card">
-          <div class="card-media">
-            <img src="images/uniform.jpg" alt="Student projects" loading="lazy">
-          </div>
-          <div class="card-body">
-            <h3>Projects</h3>
-            <p>Applied projects that turn theory into real, measurable, real-world skill.</p>
-            <a href="projects.html" class="btn btn-outline">View Projects</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-media">
-            <img src="images/uniform.jpg" alt="Course material" loading="lazy">
-          </div>
-          <div class="card-body">
-            <h3>Courses</h3>
-            <p>Maths, Physics and Accounting tracks engineered for top-tier results.</p>
-            <a href="courses.html" class="btn btn-outline">Browse Courses</a>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================= SPLIT 1 — SKILLS ======================= -->
-  <section class="section">
-    <div class="container split">
-      <div class="split-media">
-        <img src="images/one.jpg" alt="Student studying with focus" loading="lazy">
-      </div>
-
-      <div class="split-body">
-        <span class="kicker">Foundations</span>
-        <h2>The skills needed for study — and the mental attitude</h2>
-
-        <ul class="feature-list">
-          <li>
-            <h3>Independence</h3>
-            <p>
-              Work yourself to success and build a powerful self-image with strength and optimism.
-              Be a self-starter, self-motivated and self-disciplined. Always be at a level where you
-              are working on yourself, for yourself, by yourself — but that does not mean being alone
-              and lonely. Build a network of associates. Don't wait, just do it.
-            </p>
-          </li>
-          <li>
-            <h3>Associates</h3>
-            <p>
-              A great man once said, "Show me your friends and I will show you your future." The
-              people you associate with will either make you or break you. Choose to mix with
-              positive-minded people — the ones who break limits, boundaries and the mental prison
-              of poverty.
-            </p>
-          </li>
-          <li>
-            <h3>Attitude</h3>
-            <p>
-              Attitude is everything: spirit, mindset, vibration. Think yourself great and you will
-              become great. Every thought changes your rate of vibration; as you learn to think
-              greater, deeper, higher and more forcefully, your brain cells build new neurons. Be
-              sure your thoughts are good — they determine who and what you are, and ultimately what
-              you will get.
-            </p>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================= SPLIT 2 — REQUIREMENTS ======================= -->
-  <section class="section section-alt">
-    <div class="container split reverse">
-      <div class="split-media">
-        <img src="images/two.jpg" alt="Student planning and leading themselves" loading="lazy">
-      </div>
-
-      <div class="split-body">
-        <span class="kicker">Requirements</span>
-        <h2>What we ask of every learner</h2>
-
-        <ul class="feature-list">
-          <li>
-            <h3>Pro-Active</h3>
-            <p>
-              This is the principle you apply once you are fully independent. Good students are
-              pro-active: they push themselves, they don't wait for a teacher to show them the way —
-              they can see the way themselves. The real secret to outstanding results is to excel in
-              everything you do, including chores at home, cleaning, and working on yourself.
-            </p>
-          </li>
-          <li>
-            <h3>Self-Leadership</h3>
-            <p>
-              You can lead a horse to water, but you can't make it drink. This is where you come in.
-              You must put in the effort. You must believe in yourself. You must be disciplined and
-              put yourself in order. <strong>Order + Movement = Growth.</strong> Have a vision for
-              yourself, define it yourself and push yourself.
-            </p>
-          </li>
-          <li>
-            <h3>Sacrifice</h3>
-            <p>
-              Give up what you want for what you need. There is a very thin line between a want and
-              a need. Think about sleeping less or waking up early — do you need little rest, or
-              comfortable sleep? Read more, download informative books instead of scrolling social
-              media, watch enriching videos.
-            </p>
-          </li>
-        </ul>
-
-        <div class="callout">
-          <h4>Daily habits are key.</h4>
-          <p>Proper Preparation Prevents Poor Performance.</p>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ======================= SPLIT 3 — RESOURCES ======================= -->
-  <section class="section">
-    <div class="container split">
-      <div class="split-media">
-        <img src="images/three.jpg" alt="Study resources and materials" loading="lazy">
-      </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" placeholder="you@example.co.za" required>
+          </div>
+          <div class="field">
+            <label for="phone">Mobile number</label>
+            <input id="phone" name="phone" type="tel" placeholder="+27 82 000 0000" required>
+          </div>
+        </div>
 
-      <div class="split-body">
-        <span class="kicker">Resources</span>
-        <h2>Comprehensive Resources</h2>
+        <div class="form-row">
+          <div class="field">
+            <label for="province">Province</label>
+            <select id="province" name="province" required>
+              <option value="">Choose your province</option>
+              <option>Gauteng</option>
+              <option>Western Cape</option>
+              <option>KwaZulu-Natal</option>
+              <option>Mpumalanga</option>
+              <option>Eastern Cape</option>
+              <option>Limpopo</option>
+              <option>Free State</option>
+              <option>North West</option>
+              <option>Northern Cape</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="size">Circle size</label>
+            <select id="size" name="size" required>
+              <option value="">How many people?</option>
+              <option>2 – 5 members</option>
+              <option>6 – 10 members</option>
+              <option>11 – 20 members</option>
+              <option>21 – 50 members</option>
+              <option>50+ members</option>
+            </select>
+          </div>
+        </div>
 
+        <div class="field">
+          <label>Type of circle</label>
+          <div class="chips">
+            <button type="button" class="chip is-active">Family</button>
+            <button type="button" class="chip">Friends</button>
+            <button type="button" class="chip">Colleagues</button>
+            <button type="button" class="chip">Church / community</button>
+            <button type="button" class="chip">Open circle (meet new people)</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="contribution">Monthly contribution per person</label>
+          <div class="range-wrap">
+            <div class="range-top">
+              <div class="range-val" id="contributionVal">R1 000 <small>/ month</small></div>
+              <small style="color:var(--dim);font-size:.72rem;">R200 – R5 000</small>
+            </div>
+            <input id="contribution" name="contribution" type="range" min="200" max="5000" step="50" value="1000">
+            <div class="range-labels"><span>R200</span><span>R2 500</span><span>R5 000</span></div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="destination">Dream destination (optional)</label>
+          <select id="destination" name="destination">
+            <option value="">No preference yet — the circle decides</option>
+            <option>Cape Town &amp; Winelands</option>
+            <option>Durban &amp; The Golden Mile</option>
+            <option>God's Window &amp; Blyde River</option>
+            <option>Kruger National Park</option>
+            <option>Garden Route &amp; Knysna</option>
+            <option>Drakensberg &amp; Sani Pass</option>
+            <option>Soweto &amp; Johannesburg</option>
+            <option>Wild Coast &amp; Coffee Bay</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="message">Anything we should know? (optional)</label>
+          <textarea id="message" name="message" placeholder="e.g. We want to travel in December. Two of our members use wheelchairs. We'd love a Xhosa-speaking guide."></textarea>
+        </div>
+
+        <label class="check">
+          <input type="checkbox" name="terms" required>
+          <span class="check__box" aria-hidden="true"></span>
+          <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I understand contributions are held in a dedicated circle account and released only for the agreed experience.</span>
+        </label>
+
+        <button type="submit" class="btn btn--gold btn--lg btn--block">
+          Create my circle
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+
+      <!-- SUCCESS -->
+      <div class="success" id="signupSuccess" role="status" aria-live="polite">
+        <div class="success__icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6.5" stroke="#1A1305" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Your circle is born. 🎉</h3>
         <p>
-          In the 6-week training programme we provide a wealth of study materials and tools that
-          empower students to tackle challenges with confidence.
+          Check your inbox — we've sent you an invite link to share with your people.
+          Once your circle is full, we'll set up the first contribution and start voting
+          on your first destination.
         </p>
-
-        <ul class="check-list">
-          <li>Video lessons</li>
-          <li>PDF summaries</li>
-          <li>Daily exercises</li>
-          <li>Progress tracking</li>
-        </ul>
-
-        <h3 class="sub-head">Where do you vision yourself in the near future?</h3>
-        <p>
-          To be the best, you have to believe and see yourself as the best. Show up at your level
-          best.
-        </p>
-
-        <h3 class="sub-head">Past Learners</h3>
-        <p>We produce high-quality results. Excellence is the name of the game.</p>
+        <a href="experiences.html" class="btn btn--ghost btn--lg">See where others have gone</a>
       </div>
     </div>
-  </section>
 
-  <!-- ======================= SPLIT 4 — PERSONALISED ======================= -->
-  <section class="section section-alt">
-    <div class="container split reverse">
-      <div class="split-media">
-        <img src="images/four.jpg" alt="One-on-one personalised tuition" loading="lazy">
+    <!-- SUMMARY SIDEBAR -->
+    <aside class="summary" data-reveal style="--d:.1s">
+      <h3>Your circle at a glance</h3>
+      <p>Live preview based on your contribution and an average circle of 8 members.</p>
+
+      <div class="summary__row"><span>Contribution per person</span><span id="summaryPerPerson">R1 000</span></div>
+      <div class="summary__row"><span>Circle size (avg.)</span><span>8 members</span></div>
+      <div class="summary__row"><span>Collected each month</span><span id="poolMonthly">R8 000</span></div>
+      <div class="summary__row"><span>Collected in 12 months</span><span id="poolTotal">R96 000</span></div>
+      <div class="summary__row"><span>Trips per year</span><span id="tripsPerYear">2 trips</span></div>
+
+      <div class="summary__total">
+        <span>Annual pool</span>
+        <strong id="poolTotalBig">R96K</strong>
       </div>
 
-      <div class="split-body">
-        <span class="kicker">Tailored Approach</span>
-        <h2>Personalised Learning</h2>
-
-        <p>
-          We tailor our approach to meet each student's unique learning style, ensuring they grasp
-          concepts at their own pace. We know learners grasp concepts in different ways.
-        </p>
-
-        <p>By assessing the learner we identify:</p>
-
-        <ul class="check-list">
-          <li>Strengths on each learner</li>
-          <li>Weaknesses on each learner</li>
-          <li>A custom plan to close the gap</li>
-        </ul>
+      <div class="summary__avatars">
+        <i>T</i><i>N</i><i>S</i><i>M</i><i>K</i>
+        <span><b>+3 more</b> in your circle</span>
       </div>
+
+      <p class="summary__note">
+        <b>No fees until your circle is full.</b> We only take a small service fee from
+        the pooled amount once a trip is confirmed — never from individual pockets.
+      </p>
+    </aside>
+
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<section class="section section--alt">
+  <div class="wrap">
+    <div class="sec-head" data-reveal style="text-align:center;margin-inline:auto;">
+      <span class="eyebrow" style="justify-content:center;">Safe, transparent, yours</span>
+      <h2 class="h2" style="text-align:center;">A stokvel your <em>gogo</em> would approve of.</h2>
     </div>
-  </section>
+    <ol class="steps">
+      <li class="step" data-reveal>
+        <span class="step__num">01</span>
+        <h3>Dedicated circle account</h3>
+        <p>Every circle gets its own FSCA-compliant account. Members see every rand in and out, in real time.</p>
+      </li>
+      <li class="step" data-reveal style="--d:.08s">
+        <span class="step__num">02</span>
+        <h3>Two-to-sign release</h3>
+        <p>No single person can move the money. Every trip payout needs the circle's elected signatories.</p>
+      </li>
+      <li class="step" data-reveal style="--d:.16s">
+        <span class="step__num">03</span>
+        <h3>Everyone votes</h3>
+        <p>Destinations, dates and budgets are decided by the whole circle — one member, one vote.</p>
+      </li>
+      <li class="step" data-reveal style="--d:.24s">
+        <span class="step__num">04</span>
+        <h3>Cancel anytime</h3>
+        <p>If life changes, you can pause or exit. Your accumulated share stays yours — always.</p>
+      </li>
+    </ol>
+  </div>
+</section>
 
-  <!-- ======================= PRODUCT CTA ======================= -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <span class="kicker">Get Started</span>
-        <h2>Choose Your Path</h2>
-        <p class="lead">Click on your most desired product and begin today.</p>
-      </div>
-
-      <div class="tile-grid">
-        <a href="products.html" class="tile">
-          <span class="tile-label">Uniform</span>
-          <span class="tile-arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="courses.html" class="tile">
-          <span class="tile-label">Courses</span>
-          <span class="tile-arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="activity.html" class="tile">
-          <span class="tile-label">Daily Activities</span>
-          <span class="tile-arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="projects.html" class="tile">
-          <span class="tile-label">Projects</span>
-          <span class="tile-arrow" aria-hidden="true">→</span>
-        </a>
-      </div>
+<!-- CTA -->
+<section class="cta grain">
+  <div class="wrap cta__inner" data-reveal>
+    <span class="eyebrow">Not ready yet?</span>
+    <h2 class="cta__title">See what other<br>circles have <em>done</em>.</h2>
+    <p class="cta__sub">Browse real trips, real photos, real stories from circles across South Africa.</p>
+    <div class="cta__actions">
+      <a href="experiences.html" class="btn btn--gold btn--lg">See the gallery</a>
+      <a href="index.html" class="btn btn--ghost btn--lg">Back to home</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ======================= FOOTER ======================= -->
-  <footer class="site-footer">
-    <div class="container footer-grid">
+</main>
 
-      <div class="footer-brand">
-        <a class="brand" href="index.html">
-          <span class="brand-mark">IM</span>
-          <span class="brand-text">
-            <span class="brand-name">Institute of Mathematics</span>
-            <span class="brand-sub">Maths · Physics · Accounting</span>
-          </span>
-        </a>
-        <p class="footer-tagline">
-          Guiding every student to excel — in results, and in mindset.
-        </p>
-      </div>
-
-      <div class="footer-col">
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div class="footer__brand">
+      <a class="brand brand--footer" href="index.html">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 44 44" fill="none">
+            <circle cx="22" cy="17" r="6.5" fill="#D4A537"/>
+            <path d="M4 33c4.5-5 9-7.5 13.4-7.5 4.3 0 7 2.4 9.4 5.2 1.9 2.2 3.6 3.6 6.2 3.6 2.6 0 5-1.4 7-4.1" stroke="#D4A537" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand__text"><strong>SISONKE</strong><small>Life Experience Stokvel</small></span>
+      </a>
+      <p class="footer__tag">Umuntu ngumuntu ngabantu.<br>I am because we are.</p>
+    </div>
+    <nav class="footer__nav" aria-label="Footer">
+      <div>
         <h4>Explore</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="maths.html">Maths</a></li>
-          <li><a href="science.html">Physics</a></li>
-          <li><a href="accounting.html">Accounting</a></li>
-        </ul>
+        <a href="index.html">Home</a>
+        <a href="index.html#destinations">Destinations</a>
+        <a href="experiences.html">Experiences</a>
+        <a href="index.html#how">How it works</a>
       </div>
-
-      <div class="footer-col">
-        <h4>Programme</h4>
-        <ul>
-          <li><a href="courses.html">Courses</a></li>
-          <li><a href="activity.html">Daily Activities</a></li>
-          <li><a href="projects.html">Projects</a></li>
-          <li><a href="products.html">Products</a></li>
-        </ul>
+      <div>
+        <h4>Join</h4>
+        <a href="signup.html">Create a circle</a>
+        <a href="signup.html">Join an open circle</a>
+        <a href="signup.html">Corporate groups</a>
       </div>
-
-      <div class="footer-col">
-        <h4>Connect</h4>
-        <ul class="social-list">
-          <li><a href="https://www.facebook.com/imathinstitute" target="_blank" rel="noopener">Facebook</a></li>
-          <li><a href="https://www.twitter.com/imathinstitute" target="_blank" rel="noopener">Twitter</a></li>
-          <li><a href="https://www.instagram.com/imathinstitute" target="_blank" rel="noopener">Instagram</a></li>
-        </ul>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:hello@sisonke.co.za">hello@sisonke.co.za</a>
+        <a href="tel:+27110000000">+27 11 000 0000</a>
+        <a href="#">Johannesburg, South Africa</a>
       </div>
+    </nav>
+  </div>
+  <div class="wrap footer__base">
+    <small>© <span id="year"></span> Sisonke Collective. All rights reserved.</small>
+    <small>Built for the living. 🇿🇦</small>
+  </div>
+</footer>
 
-    </div>
-
-    <div class="container footer-bottom">
-      <p>© 2023 Institute of Mathematics. All rights reserved.</p>
-      <p class="footer-script">Follow us on socials</p>
-    </div>
-  </footer>
-
+<script src="main.js"></script>
 </body>
 </html>

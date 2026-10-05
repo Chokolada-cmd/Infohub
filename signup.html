@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sisonke — The Life Experience Stokvel | Travel South Africa Together</title>
+<meta name="description" content="Sisonke is a life experience stokvel. Pool monthly with your circle and travel South Africa together — Cape Town, Durban, Mpumalanga, God's Window and beyond.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='42' fill='%23D4A537'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href="index.html" aria-label="Sisonke home">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="21" stroke="url(#bg1)" stroke-width="1.2" opacity=".55"/>
+          <circle cx="22" cy="17" r="6.5" fill="url(#bg1)"/>
+          <path d="M4 33c4.5-5 9-7.5 13.4-7.5 4.3 0 7 2.4 9.4 5.2 1.9 2.2 3.6 3.6 6.2 3.6 2.6 0 5-1.4 7-4.1" stroke="url(#bg1)" stroke-width="1.8" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="bg1" x1="0" y1="0" x2="44" y2="44">
+              <stop stop-color="#F0CB6B"/><stop offset="1" stop-color="#C0872A"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      <span class="brand__text">
+        <strong>SISONKE</strong>
+        <small>Life Experience Stokvel</small>
+      </span>
+    </a>
+
+    <nav class="nav__links" id="navLinks" aria-label="Main">
+      <a href="index.html" class="is-active">Home</a>
+      <a href="index.html#shift">The Shift</a>
+      <a href="experiences.html">Experiences</a>
+      <a href="signup.html" class="btn btn--gold nav__cta">Start your circle</a>
+    </nav>
+
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= HERO ================= -->
+<section class="hero grain">
+  <div class="hero__sun" aria-hidden="true"></div>
+  <div class="hero__glow" aria-hidden="true"></div>
+
+  <svg class="hero__scene" viewBox="0 0 1440 520" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="mA" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#3A2E1E" stop-opacity=".95"/>
+        <stop offset="1" stop-color="#0A0908"/>
+      </linearGradient>
+      <linearGradient id="mB" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#241D14"/>
+        <stop offset="1" stop-color="#0A0908"/>
+      </linearGradient>
+      <linearGradient id="mC" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#15120E"/>
+        <stop offset="1" stop-color="#0A0908"/>
+      </linearGradient>
+    </defs>
+    <path d="M0,300 L120,205 L215,268 L330,150 L420,232 L520,178 L640,282 L760,196 L880,290 L1000,214 L1120,300 L1250,222 L1360,296 L1440,250 L1440,520 L0,520 Z" fill="url(#mA)"/>
+    <path d="M0,368 L150,286 L268,352 L400,262 L520,344 L660,282 L800,372 L940,300 L1080,378 L1220,310 L1340,382 L1440,332 L1440,520 L0,520 Z" fill="url(#mB)"/>
+    <path d="M0,432 L160,382 L320,436 L480,382 L640,444 L800,392 L960,448 L1120,398 L1280,452 L1440,404 L1440,520 L0,520 Z" fill="url(#mC)"/>
+  </svg>
+
+  <div class="wrap hero__inner">
+    <div class="hero__copy">
+      <span class="eyebrow" data-reveal>Umuntu ngumuntu ngabantu</span>
+      <h1 class="hero__title" data-reveal style="--d:.08s">
+        We don't save for<br>the end.
+        <em>We save for<br>the memories.</em>
+      </h1>
+      <p class="hero__lede" data-reveal style="--d:.16s">
+        Sisonke is a <strong>life experience stokvel</strong> — a circle of family, friends and colleagues
+        who pool every month to travel South Africa together. Cape Town. Durban. Mpumalanga.
+        God's Window. And everywhere in between.
+      </p>
+      <div class="hero__actions" data-reveal style="--d:.24s">
+        <a href="signup.html" class="btn btn--gold btn--lg">
+          Join the circle
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="experiences.html" class="btn btn--ghost btn--lg">See past experiences</a>
+      </div>
+
+      <ul class="hero__stats" data-reveal style="--d:.32s">
+        <li><strong data-count="42">0</strong><span>Trips travelled</span></li>
+        <li><strong data-count="1800" data-suffix="+">0</strong><span>Members moved</span></li>
+        <li><strong data-count="2400000" data-prefix="R" data-short="true">0</strong><span>Pooled &amp; spent</span></li>
+        <li><strong data-count="9">0</strong><span>Provinces</span></li>
+      </ul>
+    </div>
+
+    <aside class="hero__card glass" data-reveal style="--d:.4s">
+      <div class="hero__card-top">
+        <span class="pill pill--live"><i></i> Next departure</span>
+        <span class="hero__card-when">14 – 19 Dec</span>
+      </div>
+      <h3 class="hero__card-title">Cape Town &amp; The Cape Winelands</h3>
+      <p class="hero__card-sub">Table Mountain · Boulders Beach · Chapman's Peak · Stellenbosch</p>
+      <div class="hero__card-bar">
+        <div class="bar"><span style="width:78%"></span></div>
+        <small><b>78%</b> funded by the circle</small>
+      </div>
+      <div class="hero__card-foot">
+        <div>
+          <span class="micro">Monthly contribution</span>
+          <strong class="hero__card-price">R1 450</strong>
+        </div>
+        <div>
+          <span class="micro">Seats left</span>
+          <strong class="hero__card-price">6</strong>
+        </div>
+      </div>
+      <a href="signup.html" class="btn btn--gold btn--block">Reserve my seat</a>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>Cape Town</span><i>◆</i><span>Durban</span><i>◆</i><span>God's Window</span><i>◆</i>
+    <span>Kruger National Park</span><i>◆</i><span>Garden Route</span><i>◆</i><span>Drakensberg</span><i>◆</i>
+    <span>Soweto</span><i>◆</i><span>Wild Coast</span><i>◆</i><span>Blyde River Canyon</span><i>◆</i>
+    <span>Cape Town</span><i>◆</i><span>Durban</span><i>◆</i><span>God's Window</span><i>◆</i>
+    <span>Kruger National Park</span><i>◆</i><span>Garden Route</span><i>◆</i><span>Drakensberg</span><i>◆</i>
+    <span>Soweto</span><i>◆</i><span>Wild Coast</span><i>◆</i><span>Blyde River Canyon</span><i>◆</i>
+  </div>
+</div>
+
+<!-- ================= THE SHIFT ================= -->
+<section class="section" id="shift">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow">The Shift</span>
+      <h2 class="h2">From a burial society<br>to a <em>living</em> society.</h2>
+      <p class="lede">
+        For generations, stokvels have carried us. We pooled to bury each other with dignity —
+        and that mattered. But a people who only save for the end never get to see the beginning.
+        Sisonke turns the same trusted circle towards a different horizon.
+      </p>
+    </div>
+
+    <div class="shift">
+      <article class="shift__card shift__card--old" data-reveal>
+        <span class="shift__tag">The Old Stokvel</span>
+        <h3>"We prepare to bury each other well."</h3>
+        <ul class="shift__list">
+          <li>Contributions released only at a funeral</li>
+          <li>A lifetime of paying in, one payout out</li>
+          <li>Families meet in grief, not in joy</li>
+          <li>Memories never made — only memorials</li>
+        </ul>
+      </article>
+
+      <div class="shift__arrow" aria-hidden="true" data-reveal style="--d:.1s">
+        <svg viewBox="0 0 40 40" fill="none"><path d="M6 20h26M24 11l9 9-9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <article class="shift__card shift__card--new" data-reveal style="--d:.16s">
+        <span class="shift__tag">The Life Experience Stokvel</span>
+        <h3>"We prepare to <em>live</em> well together."</h3>
+        <ul class="shift__list">
+          <li>Contributions released as trips, twice a year</li>
+          <li>Every member travels — no one is left behind</li>
+          <li>Families meet in joy, on a mountain, at the sea</li>
+          <li>An inheritance of photographs and stories</li>
+        </ul>
+      </article>
+    </div>
+
+    <blockquote class="manifesto" data-reveal>
+      <p>"A stokvel is not a bank account. It is a promise between people. We simply changed what the promise is for."</p>
+      <cite>— The Sisonke Manifesto</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ================= DESTINATIONS ================= -->
+<section class="section section--alt" id="destinations">
+  <div class="wrap">
+    <div class="sec-head sec-head--split" data-reveal>
+      <div>
+        <span class="eyebrow">Where the circle goes</span>
+        <h2 class="h2">Eight routes.<br>One <em>beautiful</em> country.</h2>
+      </div>
+      <p class="lede lede--tight">
+        Every itinerary is built with local guides, family-run guesthouses and
+        enough free time to actually breathe. No whistle-stop tours.
+      </p>
+    </div>
+
+    <div class="dests">
+      <article class="dest dest--wide" data-reveal>
+        <div class="dest__art dest__art--capetown" aria-hidden="true">
+          <svg viewBox="0 0 800 400" preserveAspectRatio="none">
+            <circle cx="620" cy="130" r="72" fill="#F0CB6B" opacity=".85"/>
+            <path d="M0,330 L140,150 L210,230 L300,120 L390,250 L470,180 L560,300 L680,200 L800,320 L800,400 L0,400 Z" fill="#0A0908" opacity=".92"/>
+            <path d="M0,368 L160,300 L320,362 L480,300 L640,368 L800,312 L800,400 L0,400 Z" fill="#0A0908"/>
+          </svg>
+        </div>
+        <div class="dest__body">
+          <span class="dest__region">Western Cape</span>
+          <h3>Cape Town &amp; Winelands</h3>
+          <p>Table Mountain at sunrise, Boulders Beach penguins, Chapman's Peak drive and a long lunch in Stellenbosch.</p>
+          <span class="dest__meta">5 nights · from R8 400 pp</span>
+        </div>
+      </article>
+
+      <article class="dest" data-reveal style="--d:.06s">
+        <div class="dest__art dest__art--durban" aria-hidden="true">
+          <svg viewBox="0 0 600 400" preserveAspectRatio="none">
+            <circle cx="430" cy="120" r="58" fill="#F0CB6B" opacity=".8"/>
+            <path d="M0,300 Q150,250 300,300 T600,290 L600,400 L0,400 Z" fill="#0A0908" opacity=".9"/>
+            <path d="M0,350 Q160,310 320,352 T600,340 L600,400 L0,400 Z" fill="#0A0908"/>
+          </svg>
+        </div>
+        <div class="dest__body">
+          <span class="dest__region">KwaZulu-Natal</span>
+          <h3>Durban &amp; The Golden Mile</h3>
+          <p>Warm Indian Ocean water, bunny chow on Florida Road, uShaka and a cable car ride over Moses Mabhida.</p>
+          <span class="dest__meta">4 nights · from R6 200 pp</span>
+        </div>
+      </article>
+
+      <article class="dest" data-reveal style="--d:.12s">
+        <div class="dest__art dest__art--mpumalanga" aria-hidden="true">
+          <svg viewBox="0 0 600 400" preserveAspectRatio="none">
+            <circle cx="180" cy="110" r="50" fill="#F0CB6B" opacity=".75"/>
+            <path d="M0,320 L110,200 L190,270 L280,170 L370,280 L470,210 L600,320 L600,400 L0,400 Z" fill="#0A0908" opacity=".9"/>
+            <path d="M0,360 L140,318 L300,364 L460,320 L600,364 L600,400 L0,400 Z" fill="#0A0908"/>
+          </svg>
+        </div>
+        <div class="dest__body">
+          <span class="dest__region">Mpumalanga</span>
+          <h3>God's Window &amp; Blyde River</h3>
+          <p>Stand above the clouds at God's Window, then descend into Bourke's Luck Potholes and the Three Rondavels.</p>
+          <span class="dest__meta">3 nights · from R5 100 pp</span>
+        </div>
+      </article>
+
+      <article class="dest dest--tall" data-reveal style="--d:.18s">
+        <div class="dest__art dest__art--kruger" aria-hidden="true">
+          <svg viewBox="0 0 600 600" preserveAspectRatio="none">
+            <circle cx="300" cy="230" r="96" fill="#F0CB6B" opacity=".55"/>
+            <path d="M0,470 L120,420 L240,470 L360,420 L480,470 L600,425 L600,600 L0,600 Z" fill="#0A0908" opacity=".9"/>
+            <path d="M0,530 L150,495 L300,532 L450,495 L600,532 L600,600 L0,600 Z" fill="#0A0908"/>
+          </svg>
+        </div>
+        <div class="dest__body">
+          <span class="dest__region">Limpopo / Mpumalanga</span>
+          <h3>Kruger &amp; Sabi Sand</h3>
+          <p>Big Five game drives at dawn, bush braais under the Milky Way, and stories told around the fire.</p>
+          <span class="dest__meta">4 nights · from R11 900 pp</span>
+        </div>
+      </article>
+
+      <article class="dest" data-reveal style="--d:.06s">
+        <div class="dest__art dest__art--garden" aria-hidden="true">
+          <svg viewBox="0 0 600 400" preserveAspectRatio="none">
+            <circle cx="440" cy="105" r="46" fill="#F0CB6B" opacity=".7"/>
+            <path d="M0,310 L130,230 L240,300 L360,220 L470,305 L600,240 L600,400 L0,400 Z" fill="#0A0908" opacity=".9"/>
+            <path d="M0,360 L160,325 L320,362 L480,325 L600,362 L600,400 L0,400 Z" fill="#0A0908"/>
+          </svg>
+        </div>
+        <div class="dest__body">
+          <span class="dest__region">Western Cape</span>
+          <h3>Garden Route &amp; Knysna</h3>
+          <p>Tsitsikamma suspension bridge, Knysna Heads, ostrich farms in Oudtshoorn and forest cabins.</p>
+          <span class="dest__meta">5 nights · from R9 300 pp</span>
+        </div>
+      </article>
+
+      <article class="dest" data-reveal style="--d:.12s">
+        <div class="dest__art dest__art--berg" aria-hidden="true">
+          <svg viewBox="0 0 600 400" preserveAspectRatio="none">
+            <circle cx="150" cy="100" r="44" fill="#F0CB6B" opacity=".7"/>
+            <path d="M0,330 L90,160 L160,250 L250,110 L340,260 L430,150 L520,270 L600,200 L600,400 L0,400 Z" fill="#0A0908" opacity=".9"/>
+            <path d="M0,372 L170,340 L340,374 L510,340 L600,372 L600,400 L0,400 Z" fill="#0A0908"/>
+          </svg>
+        </div>
+        <div class="dest__body">
+          <span class="dest__region">KwaZulu-Natal</span>
+          <h3>Drakensberg &amp; Sani Pass</h3>
+          <p>Champagne Castle hikes, San rock art, and a 4×4 up Sani Pass to the highest pub in Africa.</p>
+          <span class="dest__meta">4 nights · from R7 400 pp</span>
+        </div>
+      </article>
+
+      <article class="dest" data-reveal style="--d:.18s">
+        <div class="dest__art dest__art--soweto" aria-hidden="true">
+          <svg viewBox="0 0 600 400" preserveAspectRatio="none">
+            <circle cx="330" cy="120" r="60" fill="#F0CB6B" opacity=".7"/>
+            <path d="M0,340 L70,340 L70,270 L130,270 L130,340 L210,340 L210,250 L280,250 L280,340 L360,340 L360,290 L430,290 L430,340 L520,340 L520,265 L600,265 L600,400 L0,400 Z" fill="#0A0908" opacity=".92"/>
+          </svg>
+        </div>
+        <div class="dest__body">
+          <span class="dest__region">Gauteng</span>
+          <h3>Soweto &amp; Joburg</h3>
+          <p>Vilakazi Street, the Apartheid Museum, rooftop sunset in Maboneng and a proper kota.</p>
+          <span class="dest__meta">2 nights · from R3 800 pp</span>
+        </div>
+      </article>
+
+      <article class="dest dest--wide" data-reveal style="--d:.24s">
+        <div class="dest__art dest__art--wild" aria-hidden="true">
+          <svg viewBox="0 0 800 400" preserveAspectRatio="none">
+            <circle cx="200" cy="115" r="66" fill="#F0CB6B" opacity=".7"/>
+            <path d="M0,320 Q200,270 400,320 T800,310 L800,400 L0,400 Z" fill="#0A0908" opacity=".9"/>
+            <path d="M0,362 Q220,325 440,364 T800,348 L800,400 L0,400 Z" fill="#0A0908"/>
+          </svg>
+        </div>
+        <div class="dest__body">
+          <span class="dest__region">Eastern Cape</span>
+          <h3>Wild Coast &amp; Coffee Bay</h3>
+          <p>Hole in the Wall, cliffside hikes, Xhosa village stays and the loudest silence you'll ever hear.</p>
+          <span class="dest__meta">5 nights · from R7 900 pp</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW IT WORKS ================= -->
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow">How the circle works</span>
+      <h2 class="h2">Four steps to a <em>full</em> life.</h2>
+    </div>
+
+    <ol class="steps">
+      <li class="step" data-reveal>
+        <span class="step__num">01</span>
+        <h3>Gather your circle</h3>
+        <p>Five people or fifty. Family, colleagues, church group, or join an open circle and meet your travel family.</p>
+      </li>
+      <li class="step" data-reveal style="--d:.08s">
+        <span class="step__num">02</span>
+        <h3>Choose your contribution</h3>
+        <p>From R500 to R5 000 a month per person. Everyone sees the same transparent ledger — no hidden fees, ever.</p>
+      </li>
+      <li class="step" data-reveal style="--d:.16s">
+        <span class="step__num">03</span>
+        <h3>Vote on the destination</h3>
+        <p>Every member gets a vote. Two departures a year — one local weekend, one flagship trip.</p>
+      </li>
+      <li class="step" data-reveal style="--d:.24s">
+        <span class="step__num">04</span>
+        <h3>Go. And go again.</h3>
+        <p>We handle flights, stays, guides and logistics. You handle the photographs and the inside jokes.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= PROOF ================= -->
+<section class="section section--alt">
+  <div class="wrap proof">
+    <div class="proof__media" data-reveal>
+      <div class="proof__stack">
+        <div class="proof__shot proof__shot--1"><span>Cape Town · Dec</span></div>
+        <div class="proof__shot proof__shot--2"><span>God's Window · Apr</span></div>
+        <div class="proof__shot proof__shot--3"><span>Kruger · Aug</span></div>
+      </div>
+    </div>
+
+    <div class="proof__copy" data-reveal style="--d:.1s">
+      <span class="eyebrow">Past experiences</span>
+      <h2 class="h2">They stopped waiting<br>for a good year.</h2>
+      <p class="lede">
+        1 800 South Africans have already travelled with a Sisonke circle.
+        Here's what they say when they come back.
+      </p>
+
+      <div class="quotes" id="quotes">
+        <blockquote class="quote is-active">
+          <p>"My mother's stokvel paid for three funerals. Mine paid for my daughter to see snow on the Drakensberg. Both are love. Only one is a memory she'll keep."</p>
+          <footer><b>Nomsa D.</b><span>Soweto · Family circle of 9</span></footer>
+        </blockquote>
+        <blockquote class="quote">
+          <p>"We were colleagues who said good morning. After five days at God's Window we're family. The office has never been the same."</p>
+          <footer><b>Rajesh P.</b><span>Durban · Work circle of 14</span></footer>
+        </blockquote>
+        <blockquote class="quote">
+          <p>"I'm 61. I'd never seen the sea. My circle voted for Durban and refused to let me pay for the last two months. I cried at the beach."</p>
+          <footer><b>Gogo Miriam K.</b><span>Mpumalanga · Community circle of 22</span></footer>
+        </blockquote>
+      </div>
+
+      <div class="quotes__dots" id="quoteDots" role="tablist" aria-label="Testimonials"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta grain">
+  <div class="wrap cta__inner" data-reveal>
+    <span class="eyebrow">Your circle is waiting</span>
+    <h2 class="cta__title">Start the stokvel<br>that <em>sends</em> you.</h2>
+    <p class="cta__sub">
+      Free to start. No lock-in. Cancel any month, keep every memory.
+    </p>
+    <div class="cta__actions">
+      <a href="signup.html" class="btn btn--gold btn--lg">Create my circle</a>
+      <a href="experiences.html" class="btn btn--ghost btn--lg">Browse the gallery</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div class="footer__brand">
+      <a class="brand brand--footer" href="index.html">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 44 44" fill="none">
+            <circle cx="22" cy="17" r="6.5" fill="#D4A537"/>
+            <path d="M4 33c4.5-5 9-7.5 13.4-7.5 4.3 0 7 2.4 9.4 5.2 1.9 2.2 3.6 3.6 6.2 3.6 2.6 0 5-1.4 7-4.1" stroke="#D4A537" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand__text"><strong>SISONKE</strong><small>Life Experience Stokvel</small></span>
+      </a>
+      <p class="footer__tag">Umuntu ngumuntu ngabantu.<br>I am because we are.</p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Footer">
+      <div>
+        <h4>Explore</h4>
+        <a href="index.html">Home</a>
+        <a href="index.html#destinations">Destinations</a>
+        <a href="experiences.html">Experiences</a>
+        <a href="index.html#how">How it works</a>
+      </div>
+      <div>
+        <h4>Join</h4>
+        <a href="signup.html">Create a circle</a>
+        <a href="signup.html">Join an open circle</a>
+        <a href="signup.html">Corporate groups</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:hello@sisonke.co.za">hello@sisonke.co.za</a>
+        <a href="tel:+27110000000">+27 11 000 0000</a>
+        <a href="#">Johannesburg, South Africa</a>
+      </div>
+    </nav>
+  </div>
+  <div class="wrap footer__base">
+    <small>© <span id="year"></span> Sisonke Collective. All rights reserved.</small>
+    <small>Built for the living. 🇿🇦</small>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
