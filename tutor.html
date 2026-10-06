@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title> Web Dev Quest - Gamified Tutor</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">    
+    </head>
+<body>
+<div id="app">
+<!-- ===== HEADER WITH GAMIFICATION ===== -->
+<header>
+<div class="header-left">
+<h1> Web Dev Quest</h1>
+<span class="subtitle">Learn by doing</span>
+</div>
+<div class="user-stats">
+<div class="stat-item" id="xp-display">
+<span class="stat-icon"> </span>
+<span class="stat-value" id="xp-count">0</span>
+<span class="stat-label">XP</span>
+</div>
+<div class="stat-item" id="level-display">
+<span class="stat-icon"> </span>
+<span class="stat-value" id="level-count">1</span>
+<span class="stat-label">Level</span>
+</div>
+<div class="stat-item" id="streak-display">
+<span class="stat-icon"> </span>
+<span class="stat-value" id="streak-count">0</span>
+<span class="stat-label">Day Streak</span>
+</div>
+<div class="stat-item" id="badge-display">
+<span class="stat-icon"> </span>
+<span class="stat-value" id="badge-count">0</span>
+<span class="stat-label">Badges</span>
+</div>
+
+<div class="btn btn-primary">
+      <a href="http://localhost:5173/" class="primary">Home</a>
+    </div>
+
+</div>
+</header>
+<!-- ===== PROGRESS PATH ===== -->
+<div class="path-progress">
+<div class="path-node completed" data-lesson="html">
+<span class="node-icon"> </span>
+<span class="node-label">HTML</span>
+<span class="node-status"> </span>
+</div>
+<div class="path-line"></div>
+<div class="path-node active" data-lesson="css">
+<span class="node-icon"> </span>
+<span class="node-label">CSS</span>
+<span class="node-status"> </span>
+</div>
+<div class="path-line"></div>
+<div class="path-node locked" data-lesson="js">
+<span class="node-icon"> </span>
+<span class="node-label">JavaScript</span>
+<span class="node-status"> </span>
+</div>
+<div class="path-line"></div>
+<div class="path-node locked" data-lesson="react">
+<span class="node-icon"> </span>
+<span class="node-label">React</span>
+<span class="node-status"> </span>
+</div>
+</div>
+<!-- ===== MAIN CONTENT ===== -->
+<main>
+<div id="lesson-container">
+<!-- Dynamically loaded by JavaScript -->
+</div>
+</main>
+<!-- ===== FOOTER ===== -->
+<footer>
+<p>Powered by <a href="https://makecode.com" target="_blank">Microsoft MakeCode</a></p>
+</footer>
+</div>
+<!-- Hidden renderer will be injected by JavaScript -->
+<script type="module" src="{{ url_for('static', path='app.js') }}"></script></body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎨 Design on the Web - Web Dev Quest</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">    <style>
+        
+        /* ===== PAGE-SPECIFIC STYLES ===== */
+        .drag-drop-zone {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .drag-items, .drop-zones {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .drag-item {
+            background: rgba(102,126,234,0.2);
+            padding: 10px 16px;
+            margin: 8px 0;
+            border-radius: 8px;
+            cursor: grab;
+            border: 2px solid rgba(102,126,234,0.3);
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+        .drag-item:hover {
+            transform: translateX(4px);
+            background: rgba(102,126,234,0.3);
+        }
+        .drag-item.dragging {
+            opacity: 0.5;
+        }
+        .drop-zone {
+            background: rgba(255,255,255,0.03);
+            padding: 12px 16px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: 2px dashed rgba(255,255,255,0.2);
+            min-height: 50px;
+            transition: all 0.3s ease;
+        }
+        .drop-zone.drag-over {
+            border-color: #667eea;
+            background: rgba(102,126,234,0.1);
+        }
+        .drop-zone.correct {
+            border-color: #48bb78;
+            background: rgba(72,187,120,0.1);
+        }
+        .drop-zone.incorrect {
+            border-color: #fc8181;
+            background: rgba(229,62,62,0.1);
+        }
+        .drop-zone .placeholder {
+            color: #718096;
+            font-style: italic;
+        }
+        .match-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
+            margin: 8px 0;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .match-item select {
+            background: #1a202c;
+            color: #e2e8f0;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .match-item select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .match-item select.correct {
+            border-color: #48bb78;
+            background: rgba(72,187,120,0.15);
+        }
+        .match-item select.incorrect {
+            border-color: #fc8181;
+            background: rgba(229,62,62,0.15);
+        }
+        .example-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 16px 0;
+        }
+        .example-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .example-card .logo {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+        .interactive-demo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin: 16px 0;
+        }
+        .interactive-demo button, .interactive-demo input {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .interactive-demo button:hover {
+            background: #667eea;
+            transform: translateY(-2px);
+        }
+        .interactive-demo input {
+            background: #1a202c;
+            min-width: 200px;
+        }
+        .interactive-demo input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .goal-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 16px 0;
+        }
+        .goal-list {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .goal-list h4 {
+            color: #f6ad55;
+            margin-bottom: 12px;
+        }
+        .goal-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .goal-list li {
+            padding: 8px 12px;
+            margin: 4px 0;
+            background: rgba(255,255,255,0.03);
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+        }
+        .lesson-step {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .lesson-step:first-child {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+        .lesson-step h3 {
+            color: #f6ad55;
+            margin-bottom: 12px;
+        }
+        .next-lesson-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .drag-drop-zone, .example-grid, .goal-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- ===== HEADER WITH GAMIFICATION ===== -->
+        <header>
+            <div class="header-left">
+                <h1>🎮 Web Dev Quest</h1>
+                <span class="subtitle">Design on the Web</span>
+            </div>
+            <div class="user-stats">
+                <div class="stat-item" id="xp-display">
+                    <span class="stat-icon">⭐</span>
+                    <span class="stat-value" id="xp-count">0</span>
+                    <span class="stat-label">XP</span>
+                </div>
+                <div class="stat-item" id="level-display">
+                    <span class="stat-icon">🏆</span>
+                    <span class="stat-value" id="level-count">1</span>
+                    <span class="stat-label">Level</span>
+                </div>
+                <div class="stat-item" id="streak-display">
+                    <span class="stat-icon">🔥</span>
+                    <span class="stat-value" id="streak-count">0</span>
+                    <span class="stat-label">Day Streak</span>
+                </div>
+                <div class="stat-item" id="badge-display">
+                    <span class="stat-icon">🎖️</span>
+                    <span class="stat-value" id="badge-count">0</span>
+                    <span class="stat-label">Badges</span>
+                </div>
+                <div class="btn btn-primary">
+                    <a href="http://localhost:5173/" class="primary">Home</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- ===== PROGRESS PATH ===== -->
+        <div class="path-progress">
+            <div class="path-node completed" data-lesson="html">
+                <span class="node-icon">📚</span>
+                <span class="node-label">HTML</span>
+                <span class="node-status">✅</span>
+            </div>
+            <div class="path-line"></div>
+            <div class="path-node completed" data-lesson="css">
+                <span class="node-icon">🎨</span>
+                <span class="node-label">CSS</span>
+                <span class="node-status">✅</span>
+            </div>
+            <div class="path-line"></div>
+            <div class="path-node active" data-lesson="design">
+                <span class="node-icon">🎯</span>
+                <span class="node-label">Design</span>
+                <span class="node-status">▶️</span>
+            </div>
+            <div class="path-line"></div>
+            <div class="path-node locked" data-lesson="js">
+                <span class="node-icon">⚡</span>
+                <span class="node-label">JavaScript</span>
+                <span class="node-status">🔒</span>
+            </div>
+            <div class="path-line"></div>
+            <div class="path-node locked" data-lesson="react">
+                <span class="node-icon">🚀</span>
+                <span class="node-label">React</span>
+                <span class="node-status">🔒</span>
+            </div>
+        </div>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main>
+            <div id="lesson-container">
+                <!-- ===== LESSON: INTRO TO WEB DESIGN ===== -->
+                <div class="lesson">
+                    <div class="lesson-header">
+                        <h2>🎨 Introduction to Web Design</h2>
+                        <span class="lesson-xp">⭐ 150 XP</span>
+                    </div>
+
+                    <div class="lesson-content">
+                        <!-- STEP 1: The Web is a Designed Space -->
+                        <section class="lesson-step">
+                            <h3>🏗️ Step 1: The Web is a Designed Space</h3>
+                            <div class="concept-box">
+                                <p>Everything you experience on the web is the result of a <strong>human decision</strong> and intention. A button, a search bar, text size, color choices — all are deliberately designed.</p>
+                                <p style="margin-top: 12px;">Think about it like buildings in the physical world:</p>
+                            </div>
+
+                            <div class="example-grid">
+                                <div class="example-card" style="border-color: #fc8181;">
+                                    <div class="logo">🏚️</div>
+                                    <h4>Haunted House</h4>
+                                    <p style="color: #a0aec0; font-size: 0.9rem;">Dark, cramped, eerie — designed to scare</p>
+                                </div>
+                                <div class="example-card" style="border-color: #48bb78;">
+                                    <div class="logo">🏡</div>
+                                    <h4>Cozy Cottage</h4>
+                                    <p style="color: #a0aec0; font-size: 0.9rem;">Warm, inviting, comfortable — designed to relax</p>
+                                </div>
+                            </div>
+
+                            <div class="interactive-demo" style="margin-top: 16px;">
+                                <button class="btn btn-primary" onclick="showDesignIntent()">💡 Show Design Intention</button>
+                                <span id="design-intent-result" style="color: #a0aec0; padding: 10px;"></span>
+                            </div>
+
+                            <!-- Discussion Questions -->
+                            <div style="background: rgba(246,173,85,0.1); border-radius: 8px; padding: 16px; margin: 16px 0;">
+                                <h4 style="color: #f6ad55;">🤔 Think About It</h4>
+                                <ul style="list-style: none; padding: 0; color: #cbd5e0;">
+                                    <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                        ❓ What sites do you use most often?
+                                    </li>
+                                    <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                        ❓ What is the goal of each site? What does the creator intend for you to do?
+                                    </li>
+                                    <li style="padding: 8px 0;">
+                                        ❓ Have you ever visited a site with one goal, but ended up doing something different?
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="button-group">
+                                <button class="btn btn-success" onclick="completeStep('step1')">✅ Mark as Complete</button>
+                            </div>
+                            <div id="step1-feedback" style="margin-top: 12px;"></div>
+                        </section>
+
+                        <!-- STEP 2: Visual Design Elements -->
+                        <section class="lesson-step">
+                            <h3>🎨 Step 2: Visual Design Elements</h3>
+                            <p style="color: #cbd5e0; margin-bottom: 16px;">Visual design elements are the building blocks of any website. Let's learn what they are!</p>
+
+                            <!-- Interactive Drag & Drop Match -->
+                            <div class="drag-drop-zone" id="visual-match">
+                                <div class="drag-items">
+                                    <h4 style="margin-bottom: 12px; color: #a0aec0;">📦 Visual Elements</h4>
+                                    <div class="drag-item" draggable="true" data-term="color">🎨 Color</div>
+                                    <div class="drag-item" draggable="true" data-term="size">📏 Size</div>
+                                    <div class="drag-item" draggable="true" data-term="space">⬜ Space</div>
+                                    <div class="drag-item" draggable="true" data-term="position">📍 Position</div>
+                                    <div class="drag-item" draggable="true" data-term="repetition">🔁 Repetition</div>
+                                </div>
+                                <div class="drop-zones">
+                                    <h4 style="margin-bottom: 12px; color: #a0aec0;">🎯 Match to Description</h4>
+                                    <div class="drop-zone" data-expected="color">
+                                        <span class="placeholder">Drop here: The hue that evokes emotion</span>
+                                    </div>
+                                    <div class="drop-zone" data-expected="size">
+                                        <span class="placeholder">Drop here: How big or small elements appear</span>
+                                    </div>
+                                    <div class="drop-zone" data-expected="space">
+                                        <span class="placeholder">Drop here: The area around or between elements</span>
+                                    </div>
+                                    <div class="drop-zone" data-expected="position">
+                                        <span class="placeholder">Drop here: Where elements are placed on the page</span>
+                                    </div>
+                                    <div class="drop-zone" data-expected="repetition">
+                                        <span class="placeholder">Drop here: Patterns that create unity</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="visual-match-feedback" style="margin-top: 12px;"></div>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="checkVisualMatch()">🔍 Check Answers</button>
+                                <button class="btn btn-secondary" onclick="resetVisualMatch()">🔄 Reset</button>
+                            </div>
+
+                            <!-- Example: Google vs Amazon -->
+                            <div style="margin-top: 24px;">
+                                <h4 style="color: #f6ad55;">🔍 Compare & Contrast</h4>
+                                <div class="example-grid">
+                                    <div class="example-card">
+                                        <div class="logo">🔍</div>
+                                        <h4>Google</h4>
+                                        <p style="color: #a0aec0; font-size: 0.8rem;">✓ Minimalist design</p>
+                                        <p style="color: #a0aec0; font-size: 0.8rem;">✓ Lots of white space</p>
+                                        <p style="color: #a0aec0; font-size: 0.8rem;">✓ Focus on search bar</p>
+                                    </div>
+                                    <div class="example-card">
+                                        <div class="logo">🛒</div>
+                                        <h4>Amazon</h4>
+                                        <p style="color: #a0aec0; font-size: 0.8rem;">✓ Dense with information</p>
+                                        <p style="color: #a0aec0; font-size: 0.8rem;">✓ Multiple call-to-actions</p>
+                                        <p style="color: #a0aec0; font-size: 0.8rem;">✓ Strategic use of color & size</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- STEP 3: Interactive Design Elements -->
+                        <section class="lesson-step">
+                            <h3>🖱️ Step 3: Interactive Design Elements</h3>
+                            <p style="color: #cbd5e0; margin-bottom: 16px;">Interactive elements are what make a website <strong>responsive</strong> to user actions.</p>
+
+                            <div class="interactive-demo">
+                                <button class="btn btn-primary" onclick="alert('🎉 You clicked me!')">🔘 Click Me</button>
+                                <input type="text" placeholder="Type something..." onfocus="this.style.borderColor='#667eea'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'" />
+                                <button class="btn btn-secondary" onclick="document.querySelector('.interactive-demo input').value = 'Hello! 👋'">✏️ Fill Input</button>
+                            </div>
+
+                            <div style="background: rgba(255,255,255,0.05); border-radius: 8px; padding: 16px; margin: 16px 0;">
+                                <h4 style="color: #a0aec0;">📋 Common Interactive Elements</h4>
+                                <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;">
+                                    <span style="background: rgba(102,126,234,0.2); padding: 4px 12px; border-radius: 20px;">🔗 Links</span>
+                                    <span style="background: rgba(72,187,120,0.2); padding: 4px 12px; border-radius: 20px;">📝 Forms</span>
+                                    <span style="background: rgba(246,173,85,0.2); padding: 4px 12px; border-radius: 20px;">🔍 Search Bars</span>
+                                    <span style="background: rgba(229,62,62,0.2); padding: 4px 12px; border-radius: 20px;">❤️ Like Buttons</span>
+                                    <span style="background: rgba(159,122,234,0.2); padding: 4px 12px; border-radius: 20px;">🛒 Buy Now</span>
+                                    <span style="background: rgba(102,126,234,0.2); padding: 4px 12px; border-radius: 20px;">💬 Comment Boxes</span>
+                                </div>
+                            </div>
+
+                            <div class="button-group">
+                                <button class="btn btn-success" onclick="completeStep('step3')">✅ Mark as Complete</button>
+                            </div>
+                            <div id="step3-feedback" style="margin-top: 12px;"></div>
+                        </section>
+
+                        <!-- STEP 4: User Goals vs Site Goals -->
+                        <section class="lesson-step">
+                            <h3>🎯 Step 4: User Goals vs Site Goals</h3>
+                            <p style="color: #cbd5e0; margin-bottom: 16px;">Websites have intentions — but so do you! Let's explore the tension between them.</p>
+
+                            <div class="goal-comparison">
+                                <div class="goal-list">
+                                    <h4>🎯 YouTube's Goals</h4>
+                                    <ul>
+                                        <li>📺 Encourage users to watch lots of content</li>
+                                        <li>💸 Get users to click on ads</li>
+                                        <li>💬 Encourage comments and engagement</li>
+                                    </ul>
+                                </div>
+                                <div class="goal-list">
+                                    <h4>👤 Your Goals as a User</h4>
+                                    <ul>
+                                        <li>🎬 Watch a specific video</li>
+                                        <li>📚 Find videos on a specific topic</li>
+                                        <li>📤 Upload your own content</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Matching: User vs Site Goals -->
+                            <div style="margin: 16px 0;">
+                                <h4 style="color: #f6ad55;">🧩 Match the Goal to its Owner</h4>
+                                <div id="goal-matching">
+                                    <div class="match-item">
+                                        <span>📈 Keep users on the site as long as possible</span>
+                                        <select data-correct="site" onchange="checkGoalMatch(this)">
+                                            <option value="">Select...</option>
+                                            <option value="user">👤 User</option>
+                                            <option value="site">🏢 Site</option>
+                                        </select>
+                                    </div>
+                                    <div class="match-item">
+                                        <span>🔍 Find exactly what I'm looking for quickly</span>
+                                        <select data-correct="user" onchange="checkGoalMatch(this)">
+                                            <option value="">Select...</option>
+                                            <option value="user">👤 User</option>
+                                            <option value="site">🏢 Site</option>
+                                        </select>
+                                    </div>
+                                    <div class="match-item">
+                                        <span>💲 Get users to make a purchase</span>
+                                        <select data-correct="site" onchange="checkGoalMatch(this)">
+                                            <option value="">Select...</option>
+                                            <option value="user">👤 User</option>
+                                            <option value="site">🏢 Site</option>
+                                        </select>
+                                    </div>
+                                    <div class="match-item">
+                                        <span>🛒 Compare prices before buying</span>
+                                        <select data-correct="user" onchange="checkGoalMatch(this)">
+                                            <option value="">Select...</option>
+                                            <option value="user">👤 User</option>
+                                            <option value="site">🏢 Site</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="goal-match-feedback" style="margin-top: 12px;"></div>
+                            </div>
+
+                            <div class="concept-box" style="margin-top: 16px;">
+                                <p><strong>💡 Key Insight:</strong> When a site's design aligns with your goals, you have a great experience. When they conflict, frustration happens.</p>
+                            </div>
+
+                            <div class="button-group">
+                                <button class="btn btn-success" onclick="completeStep('step4')">✅ Mark as Complete</button>
+                            </div>
+                            <div id="step4-feedback" style="margin-top: 12px;"></div>
+                        </section>
+
+                        <!-- Navigation -->
+                        <div class="next-lesson-container">
+                            <span style="color: #a0aec0; margin-right: 12px;">Progress: <span id="step-progress">0/4</span> steps</span>
+                            <button class="btn btn-primary" onclick="window.location.href='/program'">Next: User Journeys ➡️</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ===== FOOTER ===== -->
+        <footer>
+            <p>Powered by <a href="https://makecode.com" target="_blank">Microsoft MakeCode</a></p>
+        </footer>
+    </div>
+
+<script type="module" src="{{ url_for('static', path='design.js') }}"></script>
+</body>
+</html>

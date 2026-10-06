@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🔍 User Journeys - Web Dev Quest</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">    <style>
+        /* ===== PAGE-SPECIFIC STYLES ===== */
+        .journey-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .journey-step {
+            display: flex;
+            gap: 16px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 16px;
+            border-left: 4px solid #667eea;
+            align-items: flex-start;
+        }
+        .journey-step .step-number {
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .documentation-log {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .documentation-log .log-entry {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .documentation-log .log-label {
+            color: #667eea;
+            font-weight: 600;
+        }
+        .documentation-log .log-value {
+            color: #e2e8f0;
+            margin-left: 8px;
+        }
+        .journey-activity {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 16px 0;
+        }
+        .role-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        .role-card .role-icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .role-card h4 {
+            color: #f6ad55;
+        }
+        .role-card ul {
+            text-align: left;
+            color: #cbd5e0;
+            font-size: 0.9rem;
+            padding-left: 20px;
+        }
+        .reflection-questions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 16px 0;
+        }
+        .reflection-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .reflection-card h4 {
+            color: #f6ad55;
+            margin-bottom: 8px;
+        }
+        .reflection-card p {
+            color: #cbd5e0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .reflection-card textarea {
+            width: 100%;
+            min-height: 60px;
+            background: #0f0c29;
+            color: #e2e8f0;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 12px;
+            font-family: inherit;
+            resize: vertical;
+            margin-top: 8px;
+        }
+        .reflection-card textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .site-selector {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+        }
+        .site-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        .site-btn:hover {
+            border-color: #667eea;
+            background: rgba(102,126,234,0.1);
+        }
+        .site-btn.active {
+            border-color: #667eea;
+            background: rgba(102,126,234,0.2);
+        }
+        .journey-tips {
+            background: rgba(102,126,234,0.1);
+            border-radius: 12px;
+            padding: 16px;
+            border-left: 4px solid #667eea;
+            margin: 16px 0;
+        }
+        .journey-tips ul {
+            color: #cbd5e0;
+            padding-left: 20px;
+        }
+        .lesson-step {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .lesson-step:first-child {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+        .lesson-step h3 {
+            color: #f6ad55;
+            margin-bottom: 12px;
+        }
+        .next-lesson-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .journey-activity, .reflection-questions {
+                grid-template-columns: 1fr;
+            }
+            .journey-step {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- ===== HEADER WITH GAMIFICATION ===== -->
+        <header>
+            <div class="header-left">
+                <h1>🎮 Web Dev Quest</h1>
+                <span class="subtitle">User Journeys</span>
+            </div>
+            <div class="user-stats">
+                <div class="stat-item" id="xp-display">
+                    <span class="stat-icon">⭐</span>
+                    <span class="stat-value" id="xp-count">0</span>
+                    <span class="stat-label">XP</span>
+                </div>
+                <div class="stat-item" id="level-display">
+                    <span class="stat-icon">🏆</span>
+                    <span class="stat-value" id="level-count">1</span>
+                    <span class="stat-label">Level</span>
+                </div>
+                <div class="stat-item" id="streak-display">
+                    <span class="stat-icon">🔥</span>
+                    <span class="stat-value" id="streak-count">0</span>
+                    <span class="stat-label">Day Streak</span>
+                </div>
+                <div class="stat-item" id="badge-display">
+                    <span class="stat-icon">🎖️</span>
+                    <span class="stat-value" id="badge-count">0</span>
+                    <span class="stat-label">Badges</span>
+                </div>
+
+                <div class="btn btn-primary">
+                    <a href="http://localhost:5173/" class="primary">Home</a>
+                    </div>
+            </div>
+        </header>
+
+        <!-- ===== PROGRESS PATH ===== -->
+        <div class="path-progress">
+            <div class="path-node completed" data-lesson="html">
+                <span class="node-icon">📚</span>
+                <span class="node-label">HTML</span>
+                <span class="node-status">✅</span>
+            </div>
+            <div class="path-line"></div>
+            <div class="path-node completed" data-lesson="css">
+                <span class="node-icon">🎨</span>
+                <span class="node-label">CSS</span>
+                <span class="node-status">✅</span>
+            </div>
+            <div class="path-line"></div>
+            <div class="path-node completed" data-lesson="design">
+                <span class="node-icon">🎯</span>
+                <span class="node-label">Design</span>
+                <span class="node-status">✅</span>
+            </div>
+            <div class="path-line"></div>
+            <div class="path-node active" data-lesson="journey">
+                <span class="node-icon">🔍</span>
+                <span class="node-label">Journey</span>
+                <span class="node-status">▶️</span>
+            </div>
+            <div class="path-line"></div>
+            <div class="path-node locked" data-lesson="js">
+                <span class="node-icon">⚡</span>
+                <span class="node-label">JavaScript</span>
+                <span class="node-status">🔒</span>
+            </div>
+        </div>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main>
+            <div id="lesson-container">
+                <!-- ===== LESSON: USER JOURNEYS ===== -->
+                <div class="lesson">
+                    <div class="lesson-header">
+                        <h2>🔍 User Journeys & Reflection</h2>
+                        <span class="lesson-xp">⭐ 200 XP</span>
+                    </div>
+
+                    <div class="lesson-content">
+                        <!-- STEP 5: Investigations and Journeys -->
+                        <section class="lesson-step">
+                            <h3>🗺️ Step 5: Investigations and Journeys</h3>
+                            <p style="color: #cbd5e0; margin-bottom: 16px;">In this activity, you'll pair up and document your <strong>user journey</strong> through a website — just like real designers do!</p>
+
+                            <div class="journey-tips">
+                                <h4 style="color: #f6ad55;">💡 What is a User Journey?</h4>
+                                <p style="color: #cbd5e0;">A user journey is the path a person takes through a website. Designers document these journeys to understand user behavior and improve the design.</p>
+                            </div>
+
+                            <!-- Role Cards -->
+                            <div class="journey-activity">
+                                <div class="role-card">
+                                    <span class="role-icon">👤</span>
+                                    <h4>The User</h4>
+                                    <ul>
+                                        <li>Navigate the site with a specific goal</li>
+                                        <li>Talk out loud about what you're doing</li>
+                                        <li>Describe what you see, click, and feel</li>
+                                    </ul>
+                                </div>
+                                <div class="role-card">
+                                    <span class="role-icon">📝</span>
+                                    <h4>The Documenter</h4>
+                                    <ul>
+                                        <li>Listen carefully to your partner</li>
+                                        <li>Take notes on their journey</li>
+                                        <li>Use the log below to document</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h4 style="color: #f6ad55; margin-top: 20px;">🌐 Choose a Site to Investigate</h4>
+                            <div class="site-selector">
+                                <button class="site-btn active" onclick="selectSite(this, 'YouTube')">🎬 YouTube</button>
+                                <button class="site-btn" onclick="selectSite(this, 'Amazon')">🛒 Amazon</button>
+                                <button class="site-btn" onclick="selectSite(this, 'Wikipedia')">📚 Wikipedia</button>
+                                <button class="site-btn" onclick="selectSite(this, 'Custom')">🌟 Your Choice</button>
+                            </div>
+                            <div id="site-selection" style="color: #a0aec0; margin: 8px 0;">
+                                Selected: <strong id="selected-site">YouTube</strong>
+                            </div>
+
+                            <!-- Documentation Log -->
+                            <h4 style="color: #f6ad55; margin-top: 20px;">📋 Documentation Log</h4>
+                            <p style="color: #a0aec0; font-size: 0.9rem;">As the documenter, fill this out while your partner explores the site.</p>
+                            <div class="documentation-log" id="journey-log">
+                                <div class="log-entry">
+                                    <span class="log-label">🎯 User's Goal:</span>
+                                    <span class="log-value" id="log-goal">[Describe their goal before starting]</span>
+                                </div>
+                                <div class="log-entry">
+                                    <span class="log-label">👀 First Thing They Saw:</span>
+                                    <span class="log-value" id="log-first">[What was their first impression?]</span>
+                                </div>
+                                <div class="log-entry">
+                                    <span class="log-label">🖱️ What They Clicked:</span>
+                                    <span class="log-value" id="log-clicked">[List the actions they took]</span>
+                                </div>
+                                <div class="log-entry">
+                                    <span class="log-label">🔀 Did They Get Sidetracked?</span>
+                                    <span class="log-value" id="log-sidetracked">[Did they follow the site's design?]</span>
+                                </div>
+                                <div class="log-entry">
+                                    <span class="log-label">🎨 How Did the Site Feel?</span>
+                                    <span class="log-value" id="log-feel">[Friendly, cold, fancy, sleek?]</span>
+                                </div>
+                                <div class="log-entry">
+                                    <span class="log-label">😤 What Annoyed Them?</span>
+                                    <span class="log-value" id="log-annoyed">[What was frustrating?]</span>
+                                </div>
+                                <div class="log-entry">
+                                    <span class="log-label">📊 Time Spent on Site:</span>
+                                    <span class="log-value" id="log-time">[How long did they browse?]</span>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 16px;">
+                                <h4 style="color: #f6ad55;">📝 Fill in Your Observations</h4>
+                                <div style="display: grid; gap: 12px; margin-top: 8px;">
+                                    <input type="text" id="input-goal" placeholder="What was the user's goal?" style="background: #0f0c29; color: #e2e8f0; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 16px;" />
+                                    <input type="text" id="input-first" placeholder="What did they see first?" style="background: #0f0c29; color: #e2e8f0; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 16px;" />
+                                    <input type="text" id="input-clicked" placeholder="What did they click on?" style="background: #0f0c29; color: #e2e8f0; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 16px;" />
+                                    <input type="text" id="input-sidetracked" placeholder="Did they get sidetracked?" style="background: #0f0c29; color: #e2e8f0; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 16px;" />
+                                    <input type="text" id="input-feel" placeholder="How did the site feel?" style="background: #0f0c29; color: #e2e8f0; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 16px;" />
+                                    <input type="text" id="input-annoyed" placeholder="What annoyed them?" style="background: #0f0c29; color: #e2e8f0; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 16px;" />
+                                    <input type="text" id="input-time" placeholder="How much time did they spend?" style="background: #0f0c29; color: #e2e8f0; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 16px;" />
+                                </div>
+                                <button class="btn btn-primary" onclick="updateLog()" style="margin-top: 12px;">
+                                    📝 Update Documentation Log
+                                </button>
+                            </div>
+
+                            <div class="button-group" style="margin-top: 16px;">
+                                <button class="btn btn-success" onclick="completeStep('step5')">✅ Mark as Complete</button>
+                            </div>
+                            <div id="step5-feedback" style="margin-top: 12px;"></div>
+                        </section>
+
+                        <!-- STEP 6: Reflection and Review -->
+                        <section class="lesson-step">
+                            <h3>🤔 Step 6: Reflection and Review</h3>
+                            <p style="color: #cbd5e0; margin-bottom: 16px;">Take a moment to reflect on your user journey and what you learned about web design.</p>
+
+                            <div class="reflection-questions">
+                                <div class="reflection-card">
+                                    <h4>🎯 Design's Influence</h4>
+                                    <p>How did visual or interactive design elements influence your behavior on the site?</p>
+                                    <textarea id="reflection-influence" placeholder="Write your thoughts here..."></textarea>
+                                </div>
+                                <div class="reflection-card">
+                                    <h4>⚖️ Goal Tension</h4>
+                                    <p>Did you notice any tension between what you wanted to do and what the site design was suggesting?</p>
+                                    <textarea id="reflection-tension" placeholder="Write your thoughts here..."></textarea>
+                                </div>
+                                <div class="reflection-card">
+                                    <h4>💡 New Awareness</h4>
+                                    <p>Will you notice or do anything differently when browsing in the future?</p>
+                                    <textarea id="reflection-future" placeholder="Write your thoughts here..."></textarea>
+                                </div>
+                                <div class="reflection-card">
+                                    <h4>🔧 Teaching This</h4>
+                                    <p>If you taught this activity, what would you change to better meet the needs of others?</p>
+                                    <textarea id="reflection-teaching" placeholder="Write your thoughts here..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="button-group" style="margin-top: 12px;">
+                                <button class="btn btn-primary" onclick="saveReflections()">💾 Save Reflections</button>
+                                <button class="btn btn-success" onclick="completeStep('step6')">✅ Mark as Complete</button>
+                            </div>
+                            <div id="step6-feedback" style="margin-top: 12px;"></div>
+                        </section>
+
+                        <!-- STEP 7: Learning Experience Reflection -->
+                        <section class="lesson-step">
+                            <h3>🌟 Step 7: Learning Experience Reflection</h3>
+                            <div class="concept-box">
+                                <p style="margin-bottom: 12px;">Take a moment to reflect on the entire "Design on the Web" learning experience.</p>
+                            </div>
+
+                            <div style="display: grid; gap: 16px; margin: 16px 0;">
+                                <div style="background: rgba(255,255,255,0.05); border-radius: 12px; padding: 16px;">
+                                    <h4 style="color: #f6ad55;">❤️ What did you like about this activity?</h4>
+                                    <textarea id="reflection-like" placeholder="What was most enjoyable or valuable?" style="width:100%; min-height:60px; background:#0f0c29; color:#e2e8f0; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; resize:vertical; margin-top:8px;"></textarea>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.05); border-radius: 12px; padding: 16px;">
+                                    <h4 style="color: #f6ad55;">🔄 What would you change?</h4>
+                                    <textarea id="reflection-change" placeholder="What would you change to better meet the needs of your audience?" style="width:100%; min-height:60px; background:#0f0c29; color:#e2e8f0; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; resize:vertical; margin-top:8px;"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="saveFinalReflections()">💾 Save & Submit</button>
+                                <button class="btn btn-success" onclick="completeStep('step7')">✅ Complete All Steps</button>
+                            </div>
+                            <div id="step7-feedback" style="margin-top: 12px;"></div>
+                        </section>
+
+                        <!-- Navigation -->
+                        <div class="next-lesson-container">
+                            <span style="color: #a0aec0; margin-right: 12px;">Progress: <span id="step-progress">0/3</span> steps</span>
+                            <button class="btn btn-primary" onclick="window.location.href='/javascript'">⬅️ go-to JavaScript</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ===== FOOTER ===== -->
+        <footer>
+            <p>Powered by <a href="https://makecode.com" target="_blank">Microsoft MakeCode</a></p>
+        </footer>
+    </div>
+
+    <script type="module" src="{{ url_for('static', path='journey.js') }}"></script>
+</body>
+</html>

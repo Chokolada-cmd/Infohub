@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript - Web Dev Quest</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+    <style>
+        /* ===== PAGE-SPECIFIC STYLES ===== */
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 16px 0;
+        }
+        .example-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .example-card .logo { font-size: 2.5rem; margin-bottom: 8px; }
+        .example-card h4 { color: #f6ad55; margin-bottom: 6px; }
+        .example-card p { color: #a0aec0; font-size: 0.85rem; }
+
+        .interactive-demo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            margin: 16px 0;
+            padding: 16px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            border: 1px dashed rgba(255,255,255,0.1);
+        }
+        .interactive-demo input {
+            background: #1a202c;
+            color: #e2e8f0;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 10px 14px;
+            min-width: 200px;
+            font-family: inherit;
+        }
+        .interactive-demo input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .match-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
+            margin: 8px 0;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .match-item select {
+            background: #1a202c;
+            color: #e2e8f0;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .match-item select:focus { outline: none; border-color: #667eea; }
+        .match-item select.correct {
+            border-color: #48bb78;
+            background: rgba(72,187,120,0.15);
+        }
+        .match-item select.incorrect {
+            border-color: #fc8181;
+            background: rgba(229,62,62,0.15);
+        }
+
+        .code-challenge {
+            margin: 16px 0;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .code-challenge h4 {
+            color: #f6ad55;
+            margin-bottom: 8px;
+        }
+        .code-challenge .prompt {
+            color: #cbd5e0;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+        .code-editor {
+            width: 100%;
+            min-height: 120px;
+            background: #0f0c29;
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            padding: 14px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            outline: none;
+            resize: vertical;
+            tab-size: 2;
+        }
+        .code-editor:focus { border-color: #667eea; }
+        .code-toolbar {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        .output-console {
+            margin-top: 12px;
+            background: #0f0c29;
+            border-radius: 8px;
+            padding: 12px 16px;
+            min-height: 50px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            color: #a0aec0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .output-console .log-line {
+            padding: 2px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .output-console .log-line.success { color: #48bb78; }
+        .output-console .log-line.error { color: #fc8181; }
+        .output-console .log-line.warning { color: #f6ad55; }
+
+        .demo-box {
+            margin: 12px 0;
+            padding: 20px;
+            border-radius: 12px;
+            background: rgba(102,126,234,0.1);
+            border: 1px solid rgba(102,126,234,0.3);
+            text-align: center;
+        }
+        .demo-box #demo-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .js-keyword {
+            background: rgba(102,126,234,0.2);
+            color: #b794f4;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .js-string { color: #f6ad55; font-family: 'Courier New', monospace; }
+        .js-number { color: #68d391; font-family: 'Courier New', monospace; }
+
+        .lesson-step {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .lesson-step:first-child {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+        .lesson-step h3 {
+            color: #f6ad55;
+            margin-bottom: 12px;
+        }
+        .next-lesson-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .example-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- ===== HEADER WITH GAMIFICATION ===== -->
+        <header>
+            <div class="header-left">
+                <h1>Web Dev Quest</h1>
+                <span class="subtitle">JavaScript</span>
+            </div>
+            <div class="user-stats">
+                <div class="stat-item" id="xp-display">
+                    <span class="stat-icon">XP</span>
+                    <span class="stat-value" id="xp-count">0</span>
+                    <span class="stat-label">XP</span>
+                </div>
+                <div class="stat-item" id="level-display">
+                    <span class="stat-icon">LVL</span>
+                    <span class="stat-value" id="level-count">1</span>
+                    <span class="stat-label">Level</span>
+                </div>
+                <div class="stat-item" id="streak-display">
+                    <span class="stat-icon">STR</span>
+                    <span class="stat-value" id="streak-count">0</span>
+                    <span class="stat-label">Day Streak</span>
+                </div>
+                <div class="stat-item" id="badge-display">
+                    <span class="stat-icon">BDG</span>
+                    <span class="stat-value" id="badge-count">0</span>
+                    <span class="stat-label">Badges</span>
+                </div>
+                <div class="btn btn-primary">
+                    <a href="http://localhost:5173/" class="primary">Home</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- ===== PROGRESS PATH ===== -->
+        <div class="path-progress">
+            <div class="path-node completed" data-lesson="html">
+                <span class="node-icon">1</span>
+                <span class="node-label">HTML</span>
+                <span class="node-status">Done</span>
+            </div>
+            <div class="path-line"></div>
+            <div class="path-node completed" data-lesson="css">
+                <span class="node-icon">2</span>
+                <span class="node-label">CSS</span>
+                <span class="node-status">Done</span>
+            </div>
+            <div class="path-line"></div>
+            <div class="path-node completed" data-lesson="design">
+                <span class="node-icon">3</span>
+                <span class="node-label">Design</span>
+                <span class="node-status">Done</span>
+            </div>
+            <div class="path-line"></div>
+            <div class="path-node completed" data-lesson="journey">
+                <span class="node-icon">4</span>
+                <span class="node-label">Journey</span>
+                <span class="node-status">Done</span>
+            </div>
+            <div class="path-line"></div>
+            <div class="path-node active" data-lesson="js">
+                <span class="node-icon">5</span>
+                <span class="node-label">JavaScript</span>
+                <span class="node-status">Current</span>
+            </div>
+            <div class="path-line"></div>
+            <div class="path-node locked" data-lesson="react">
+                <span class="node-icon">6</span>
+                <span class="node-label">React</span>
+                <span class="node-status">Locked</span>
+            </div>
+        </div>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main>
+            <div id="lesson-container">
+                <div class="lesson">
+                    <div class="lesson-header">
+                        <h2>JavaScript: The Brain of the Web</h2>
+                        <span class="lesson-xp">350 XP</span>
+                    </div>
+
+                    <div class="lesson-content">
+
+                        <!-- ===== STEP 1: What is JavaScript? ===== -->
+                        <section class="lesson-step">
+                            <h3>Step 1: What is JavaScript?</h3>
+                            <div class="concept-box">
+                                <p>So far you've learned <strong>HTML</strong> (structure) and <strong>CSS</strong> (style). JavaScript is the <strong>behavior</strong> - the "brain" that makes pages <em>think</em> and <em>react</em>.</p>
+                            </div>
+
+                            <div class="example-grid">
+                                <div class="example-card" style="border-color:#f6ad55;">
+                                    <div class="logo">HTML</div>
+                                    <h4>HTML</h4>
+                                    <p>The skeleton - what's on the page</p>
+                                </div>
+                                <div class="example-card" style="border-color:#667eea;">
+                                    <div class="logo">CSS</div>
+                                    <h4>CSS</h4>
+                                    <p>The paint - how it looks</p>
+                                </div>
+                                <div class="example-card" style="border-color:#48bb78;">
+                                    <div class="logo">JS</div>
+                                    <h4>JavaScript</h4>
+                                    <p>The brain - how it behaves</p>
+                                </div>
+                            </div>
+
+                            <div class="interactive-demo">
+                                <button class="btn btn-primary" onclick="revealJsExample()">Show me an example</button>
+                                <span id="js-reveal-result" style="color:#a0aec0;"></span>
+                            </div>
+
+                            <div style="background: rgba(246,173,85,0.1); border-radius: 8px; padding: 16px; margin: 16px 0;">
+                                <h4 style="color:#f6ad55;">Think About It</h4>
+                                <ul style="list-style:none; padding:0; color:#cbd5e0;">
+                                    <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05);">When you click a "Like" button and the number changes - what made that happen?</li>
+                                    <li style="padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05);">When a website shows a popup after you scroll - what triggered it?</li>
+                                    <li style="padding:8px 0;">Which sites feel "alive" and interactive to you?</li>
+                                </ul>
+                            </div>
+
+                            <div class="button-group">
+                                <button class="btn btn-success" onclick="completeStep('step1')">Mark as Complete</button>
+                            </div>
+                            <div id="step1-feedback" style="margin-top: 12px;"></div>
+                        </section>
+
+                        <!-- ===== STEP 2: Variables ===== -->
+                        <section class="lesson-step">
+                            <h3>Step 2: Variables - Boxes for Information</h3>
+                            <p style="color:#cbd5e0; margin-bottom:16px;">A <strong>variable</strong> is a labeled box where you store information. You give it a name, and you put a value inside.</p>
+
+                            <div class="concept-box">
+                                <p><span class="js-keyword">let</span> score = <span class="js-number">0</span>; &nbsp;&nbsp;<span style="color:#718096;">// a box called "score" holding 0</span></p>
+                                <p style="margin-top:6px;"><span class="js-keyword">const</span> name = <span class="js-string">"Ada"</span>; &nbsp;&nbsp;<span style="color:#718096;">// a box that can't be reassigned</span></p>
+                            </div>
+
+                            <h4 style="color:#f6ad55; margin-top:20px;">Match the keyword to its meaning</h4>
+                            <div id="var-matching">
+                                <div class="match-item">
+                                    <span><span class="js-keyword">let</span> - a changeable box</span>
+                                    <select data-correct="yes" onchange="checkMatch(this, 'var')">
+                                        <option value="">Select...</option>
+                                        <option value="yes">Can be changed later</option>
+                                        <option value="no">Cannot be changed</option>
+                                    </select>
+                                </div>
+                                <div class="match-item">
+                                    <span><span class="js-keyword">const</span> - a permanent box</span>
+                                    <select data-correct="no" onchange="checkMatch(this, 'var')">
+                                        <option value="">Select...</option>
+                                        <option value="yes">Can be changed later</option>
+                                        <option value="no">Cannot be changed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="var-feedback" style="margin-top:12px;"></div>
+
+                            <div class="code-challenge">
+                                <h4>Your Turn: Create 3 Variables</h4>
+                                <p class="prompt">Create a variable called <span class="js-keyword">playerName</span> with your name, <span class="js-keyword">score</span> with the number <span class="js-number">100</span>, and <span class="js-keyword">isWinner</span> set to <span class="js-keyword">true</span>. Then <span class="js-keyword">console.log</span> each of them.</p>
+                                <textarea class="code-editor" id="code-vars">// Type your code here
+let playerName = "YourName";
+let score = 0;
+let isWinner = false;
+
+console.log(playerName);
+console.log(score);
+console.log(isWinner);</textarea>
+                                <div class="code-toolbar">
+                                    <button class="btn btn-primary" onclick="runCode('code-vars','out-vars')">Run Code</button>
+                                    <button class="btn btn-secondary" onclick="resetCode('code-vars','// Type your code here')">Reset</button>
+                                </div>
+                                <div class="output-console" id="out-vars"><div class="log-line">Click "Run Code" to see output...</div></div>
+                            </div>
+
+                            <div class="button-group">
+                                <button class="btn btn-success" onclick="completeStep('step2')">Mark as Complete</button>
+                            </div>
+                            <div id="step2-feedback" style="margin-top: 12px;"></div>
+                        </section>
+
+                        <!-- ===== STEP 3: Data Types ===== -->
+                        <section class="lesson-step">
+                            <h3>Step 3: Data Types</h3>
+                            <p style="color:#cbd5e0; margin-bottom:16px;">JavaScript values come in different "flavors". The most common ones:</p>
+
+                            <div class="example-grid">
+                                <div class="example-card"><div class="logo">STR</div><h4>String</h4><p><span class="js-string">"hello"</span></p></div>
+                                <div class="example-card"><div class="logo">NUM</div><h4>Number</h4><p><span class="js-number">42</span></p></div>
+                                <div class="example-card"><div class="logo">BOOL</div><h4>Boolean</h4><p><span class="js-keyword">true</span> / <span class="js-keyword">false</span></p></div>
+                            </div>
+                            <div class="example-grid">
+                                <div class="example-card"><div class="logo">ARR</div><h4>Array</h4><p><span class="js-keyword">[1, 2, 3]</span></p></div>
+                                <div class="example-card"><div class="logo">OBJ</div><h4>Object</h4><p><span class="js-keyword">{ name: "Ada" }</span></p></div>
+                                <div class="example-card"><div class="logo">NUL</div><h4>null / undefined</h4><p>Nothing there</p></div>
+                            </div>
+
+                            <h4 style="color:#f6ad55; margin-top:20px;">Match the value to its type</h4>
+                            <div id="type-matching">
+                                <div class="match-item">
+                                    <span><span class="js-string">"Web Dev Quest"</span></span>
+                                    <select data-correct="string" onchange="checkMatch(this, 'type')">
+                                        <option value="">Select type...</option>
+                                        <option value="string">String</option>
+                                        <option value="number">Number</option>
+                                        <option value="boolean">Boolean</option>
+                                        <option value="array">Array</option>
+                                    </select>
+                                </div>
+                                <div class="match-item">
+                                    <span><span class="js-number">7</span></span>
+                                    <select data-correct="number" onchange="checkMatch(this, 'type')">
+                                        <option value="">Select type...</option>
+                                        <option value="string">String</option>
+                                        <option value="number">Number</option>
+                                        <option value="boolean">Boolean</option>
+                                        <option value="array">Array</option>
+                                    </select>
+                                </div>
+                                <div class="match-item">
+                                    <span><span class="js-keyword">true</span></span>
+                                    <select data-correct="boolean" onchange="checkMatch(this, 'type')">
+                                        <option value="">Select type...</option>
+                                        <option value="string">String</option>
+                                        <option value="number">Number</option>
+                                        <option value="boolean">Boolean</option>
+                                        <option value="array">Array</option>
+                                    </select>
+                                </div>
+                                <div class="match-item">
+                                    <span><span class="js-keyword">[</span><span class="js-string">"a"</span>, <span class="js-string">"b"</span>, <span class="js-string">"c"</span><span class="js-keyword">]</span></span>
+                                    <select data-correct="array" onchange="checkMatch(this, 'type')">
+                                        <option value="">Select type...</option>
+                                        <option value="string">String</option>
+                                        <option value="number">Number</option>
+                                        <option value="boolean">Boolean</option>
+                                        <option value="array">Array</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="type-feedback" style="margin-top:12px;"></div>
+
+                            <div class="button-group">
+                                <button class="btn btn-success" onclick="completeStep('step3')">Mark as Complete</button>
+                            </div>
+                            <div id="step3-feedback" style="margin-top: 12px;"></div>
+                        </section>
+
+                        <!-- ===== STEP 4: Operators & Conditionals ===== -->
+                        <section class="lesson-step">
+                            <h3>Step 4: Operators &amp; Conditionals</h3>
+                            <p style="color:#cbd5e0; margin-bottom:16px;">Operators let you do math and comparisons. Conditionals let your code make <strong>decisions</strong>.</p>
+
+                            <div class="concept-box">
+                                <p>Arithmetic: <span class="js-keyword">+</span> <span class="js-keyword">-</span> <span class="js-keyword">*</span> <span class="js-keyword">/</span></p>
+                                <p style="margin-top:6px;">Comparison: <span class="js-keyword">===</span> (equal) <span class="js-keyword">!==</span> (not equal) <span class="js-keyword">&gt;</span> <span class="js-keyword">&lt;</span></p>
+                                <p style="margin-top:6px;">Logic: <span class="js-keyword">&amp;&amp;</span> (and) <span class="js-keyword">||</span> (or) <span class="js-keyword">!</span> (not)</p>
+                            </div>
+
+                            <h4 style="color:#f6ad55; margin-top:20px;">Predict the Output</h4>
+                            <div id="op-matching">
+                                <div class="match-item">
+                                    <span><span class="js-keyword">5</span> + <span class="js-keyword">3</span></span>
+                                    <select data-correct="8" onchange="checkMatch(this, 'op')">
+                                        <option value="">Select...</option>
+                                        <option value="8">8</option>
+                                        <option value="53">"53"</option>
+                                        <option value="2">2</option>
+                                    </select>
+                                </div>
+                                <div class="match-item">
+                                    <span><span class="js-string">"5"</span> + <span class="js-number">3</span></span>
+                                    <select data-correct="53" onchange="checkMatch(this, 'op')">
+                                        <option value="">Select...</option>
+                                        <option value="8">8</option>
+                                        <option value="53">"53"</option>
+                                        <option value="2">2</option>
+                                    </select>
+                                </div>
+                                <div class="match-item">
+                                    <span><span class="js-number">5</span> === <span class="js-string">"5"</span></span>
+                                    <select data-correct="false" onchange="checkMatch(this, 'op')">
+                                        <option value="">Select...</option>
+                                        <option value="true">true</option>
+                                        <option value="false">false</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="op-feedback" style="margin-top:12px;"></div>
+
+                            <div class="code-challenge">
+                                <h4>Your Turn: Write an if/else</h4>
+                                <p class="prompt">Create a variable <span class="js-keyword">score</span> with the value <span class="js-number">75</span>. Then write an <span class="js-keyword">if/else</span> that logs <span class="js-string">"Pass!"</span> if score is 60 or more, and <span class="js-string">"Try again"</span> otherwise.</p>
+                                <textarea class="code-editor" id="code-if">// Your code here
+let score = 75;
+
+if (score >= 60) {
+    console.log("Pass!");
+} else {
+    console.log("Try again");
+}</textarea>
+                                <div class="code-toolbar">
+                                    <button class="btn btn-primary" onclick="runCode('code-if','out-if')">Run Code</button>
+                                    <button class="btn btn-secondary" onclick="resetCode('code-if','// Your code here')">Reset</button>
+                                </div>
+                                <div class="output-console" id="out-if"><div class="log-line">Click "Run Code" to see output...</div></div>
+                            </div>
+
+                            <div class="button-group">
+                                <button class="btn btn-success" onclick="completeStep('step4')">Mark as Complete</button>
+                            </div>
+                            <div id="step4-feedback" style="margin-top: 12px;"></div>
+                        </section>
+
+                        <!-- ===== STEP 5: Functions ===== -->
+                        <section class="lesson-step">
+                            <h3>Step 5: Functions - Reusable Machines</h3>
+                            <p style="color:#cbd5e0; margin-bottom:16px;">A <strong>function</strong> is a reusable block of code. You <em>define</em> it once, then <em>call</em> it whenever you need it.</p>
+
+                            <div class="concept-box">
+                                <p><span class="js-keyword">function</span> greet(name) {</p>
+                                <p style="margin-left:20px;">&nbsp;&nbsp;<span class="js-keyword">return</span> <span class="js-string">"Hello, "</span> + name + <span class="js-string">"!"</span>;</p>
+                                <p>}</p>
+                                <p style="margin-top:8px;">greet(<span class="js-string">"Ada"</span>); <span style="color:#718096;">// -> "Hello, Ada!"</span></p>
+                            </div>
+
+                            <div class="code-challenge">
+                                <h4>Your Turn: Write a Function</h4>
+                                <p class="prompt">Write a function called <span class="js-keyword">double</span> that takes a number and returns twice its value. Then call it with <span class="js-number">5</span> and log the result (should be <span class="js-number">10</span>).</p>
+                                <textarea class="code-editor" id="code-fn">// Your code here
+function double(n) {
+    return n * 2;
+}
+
+console.log(double(5));</textarea>
+                                <div class="code-toolbar">
+                                    <button class="btn btn-primary" onclick="runCode('code-fn','out-fn')">Run Code</button>
+                                    <button class="btn btn-secondary" onclick="resetCode('code-fn','// Your code here')">Reset</button>
+                                </div>
+                                <div class="output-console" id="out-fn"><div class="log-line">Click "Run Code" to see output...</div></div>
+                            </div>
+
+                            <div class="button-group">
+                                <button class="btn btn-success" onclick="completeStep('step5')">Mark as Complete</button>
+                            </div>
+                            <div id="step5-feedback" style="margin-top: 12px;"></div>
+                        </section>
+
+                        <!-- ===== STEP 6: Arrays & Loops ===== -->
+                        <section class="lesson-step">
+                            <h3>Step 6: Arrays &amp; Loops</h3>
+                            <p style="color:#cbd5e0; margin-bottom:16px;">An <strong>array</strong> holds a list of values. A <strong>loop</strong> repeats code for each item in the list.</p>
+
+                            <div class="concept-box">
+                                <p><span class="js-keyword">let</span> colors = [<span class="js-string">"red"</span>, <span class="js-string">"green"</span>, <span class="js-string">"blue"</span>];</p>
+                                <p style="margin-top:8px;">colors.<span class="js-keyword">forEach</span>(<span class="js-keyword">function</span>(c) { console.log(c); });</p>
+                            </div>
+
+                            <div class="code-challenge">
+                                <h4>Your Turn: Loop Through an Array</h4>
+                                <p class="prompt">Create an array <span class="js-keyword">nums</span> = <span class="js-keyword">[10, 20, 30]</span>. Use a loop (<span class="js-keyword">for</span> or <span class="js-keyword">forEach</span>) to log each number <strong>times 2</strong>. Expected output: <span class="js-number">20</span>, <span class="js-number">40</span>, <span class="js-number">60</span>.</p>
+                                <textarea class="code-editor" id="code-loop">// Your code here
+let nums = [10, 20, 30];
+
+nums.forEach(function(n) {
+    console.log(n * 2);
+});</textarea>
+                                <div class="code-toolbar">
+                                    <button class="btn btn-primary" onclick="runCode('code-loop','out-loop')">Run Code</button>
+                                    <button class="btn btn-secondary" onclick="resetCode('code-loop','// Your code here')">Reset</button>
+                                </div>
+                                <div class="output-console" id="out-loop"><div class="log-line">Click "Run Code" to see output...</div></div>
+                            </div>
+
+                            <div class="button-group">
+                                <button class="btn btn-success" onclick="completeStep('step6')">Mark as Complete</button>
+                            </div>
+                            <div id="step6-feedback" style="margin-top: 12px;"></div>
+                        </section>
+
+                        <!-- ===== STEP 7: DOM Manipulation ===== -->
+                        <section class="lesson-step">
+                            <h3>Step 7: DOM Manipulation - Making Pages React</h3>
+                            <p style="color:#cbd5e0; margin-bottom:16px;">The <strong>DOM</strong> is JavaScript's view of the HTML page. You can select elements and change them - live!</p>
+
+                            <div class="concept-box">
+                                <p><span class="js-keyword">document</span>.<span class="js-keyword">querySelector</span>(<span class="js-string">"#demo-text"</span>).textContent = <span class="js-string">"Changed!"</span>;</p>
+                            </div>
+
+                            <div class="demo-box">
+                                <div id="demo-text">Hello from JavaScript</div>
+                                <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+                                    <button class="btn btn-primary" onclick="changeDemoText()">Change Text</button>
+                                    <button class="btn btn-secondary" onclick="changeDemoColor()">Change Color</button>
+                                    <button class="btn btn-danger" onclick="resetDemo()">Reset</button>
+                                </div>
+                            </div>
+                            <p style="color:#a0aec0; font-size:0.85rem; text-align:center;">These buttons call JS functions that modify the DOM.</p>
+
+                            <div class="code-challenge">
+                                <h4>Your Turn: Build a Click Counter</h4>
+                                <p class="prompt">This challenge is conceptual - no code to run. In your own words, describe the steps you'd take to build a button that counts clicks. Write it below.</p>
+                                <textarea class="code-editor" id="code-dom" placeholder="Step 1: Select the button element with document.querySelector..."></textarea>
+                                <div class="code-toolbar">
+                                    <button class="btn btn-primary" onclick="saveDomReflection()">Save Reflection</button>
+                                </div>
+                                <div id="dom-feedback" style="margin-top:10px;"></div>
+                            </div>
+
+                            <div class="button-group">
+                                <button class="btn btn-success" onclick="completeStep('step7')">Mark as Complete</button>
+                            </div>
+                            <div id="step7-feedback" style="margin-top: 12px;"></div>
+                        </section>
+
+                        <!-- ===== NAVIGATION ===== -->
+                        <div class="next-lesson-container">
+                            <span style="color:#a0aec0; margin-right:12px;">Progress: <span id="step-progress">0/7</span> steps</span>
+                            <button class="btn btn-primary" onclick="window.location.href='/program'">Back: User Journeys</button>
+                            <button class="btn btn-primary" onclick="alert('React is coming soon!')">Next: React</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ===== FOOTER ===== -->
+        <footer>
+            <p>Powered by <a href="https://makecode.com" target="_blank">Microsoft MakeCode</a></p>
+        </footer>
+    </div>
+
+    <script type="module" src="{{ url_for('static', path='javascript.js') }}"></script>
+ 
+</body>
+</html>
