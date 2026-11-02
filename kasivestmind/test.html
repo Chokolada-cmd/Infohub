@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APEX MARKETS — Premium Financial Intelligence</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ========== GLOBAL & THEME ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --navy-deep: #0A0E1A;
+      --navy-mid: #12172B;
+      --navy-soft: #1A1F35;
+      --gold: #C9A84C;
+      --gold-light: #E5C76B;
+      --gold-dim: #9E7E3A;
+      --text-white: #F4F6FC;
+      --text-silver: #B0B8D0;
+      --text-muted: #6B7390;
+      --border-subtle: rgba(201, 168, 76, 0.15);
+      --border-light: rgba(255, 255, 255, 0.06);
+      --card-bg: #12172B;
+      --success: #2E7D5E;
+      --danger: #B34A4A;
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: var(--navy-deep);
+      color: var(--text-white);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ========== TYPOGRAPHY ========== */
+    h1, h2, h3, h4 {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+    }
+
+    .gold-text {
+      color: var(--gold);
+    }
+
+    .silver-text {
+      color: var(--text-silver);
+    }
+
+    .section-label {
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+
+    /* ========== BUTTONS ========== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.65rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      background: none;
+      font-family: var(--font-main);
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--navy-deep);
+      border-color: var(--gold);
+      font-weight: 600;
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border-subtle);
+      color: var(--text-white);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .btn-sm {
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+    }
+
+    /* ========== HEADER / NAV ========== */
+    .site-header {
+      background: rgba(10, 14, 26, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-light);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0 0;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text-white);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .logo i {
+      color: var(--gold);
+      font-size: 1.4rem;
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--text-silver);
+    }
+
+    .nav-links a {
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--gold);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-white);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* ========== MAIN ========== */
+    main {
+      flex: 1;
+      padding: 3rem 0 4rem;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========== HOME PAGE ========== */
+    .hero {
+      padding: 2rem 0 3rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      max-width: 820px;
+      margin: 0 auto 1rem;
+    }
+
+    .hero p {
+      color: var(--text-silver);
+      font-size: 1.15rem;
+      max-width: 640px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-card .value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .stat-card .label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.25rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--border-subtle);
+    }
+
+    .feature-card i {
+      font-size: 1.8rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .feature-card p {
+      color: var(--text-silver);
+      font-size: 0.9rem;
+    }
+
+    /* ========== MEMBERSHIP PAGE ========== */
+    .page-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .page-header p {
+      color: var(--text-silver);
+      max-width: 700px;
+      margin-top: 0.5rem;
+    }
+
+    .pricing-toggle {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.5rem 0 2rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 0.5rem;
+      width: fit-content;
+    }
+
+    .pricing-toggle button {
+      padding: 0.5rem 1.5rem;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      color: var(--text-silver);
+      font-weight: 500;
+      cursor: pointer;
+      font-family: var(--font-main);
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .pricing-toggle button.active {
+      background: var(--gold);
+      color: var(--navy-deep);
+      font-weight: 600;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .price-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .price-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+
+    .price-card .tier-name {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-card .price {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text-white);
+      margin-bottom: 0.25rem;
+    }
+
+    .price-card .price span {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .price-card .description {
+      font-size: 0.85rem;
+      color: var(--text-silver);
+      margin-bottom: 1.5rem;
+      min-height: 2.5rem;
+    }
+
+    .price-card ul {
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .price-card ul li {
+      padding: 0.4rem 0;
+      font-size: 0.85rem;
+      color: var(--text-silver);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .price-card ul li i {
+      color: var(--gold);
+      font-size: 0.7rem;
+      margin-top: 0.35rem;
+    }
+
+    /* ========== ABOUT PAGE ========== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin: 3rem 0;
+    }
+
+    .about-grid .text-block p {
+      color: var(--text-silver);
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .about-image-placeholder {
+      background: linear-gradient(135deg, var(--navy-mid), var(--navy-soft));
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 3rem;
+    }
+
+    /* ========== ACADEMY PAGE ========== */
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .course-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .course-thumb {
+      background: linear-gradient(135deg, var(--navy-soft), var(--navy-mid));
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 2.5rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .course-body {
+      padding: 1.5rem;
+    }
+
+    .course-body .level {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .course-body h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .course-body p {
+      color: var(--text-silver);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-light);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    /* ========== MARKET INTELLIGENCE PAGE ========== */
+    .market-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .market-table-wrap {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 1.5rem;
+      overflow-x: auto;
+    }
+
+    .market-table-wrap h3 {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .market-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .market-table th {
+      text-align: left;
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.6rem 0.5rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .market-table td {
+      padding: 0.7rem 0.5rem;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-silver);
+    }
+
+    .market-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .market-table .asset-name {
+      color: var(--text-white);
+      font-weight: 500;
+    }
+
+    .market-table .up {
+      color: #4CAF82;
+    }
+
+    .market-table .down {
+      color: #E25C5C;
+    }
+
+    .sentiment-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .sentiment-card h3 {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .sentiment-bar {
+      margin-bottom: 1.2rem;
+    }
+
+    .sentiment-bar .label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 0.3rem;
+      color: var(--text-silver);
+    }
+
+    .sentiment-bar .bar-bg {
+      height: 6px;
+      background: var(--navy-soft);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .sentiment-bar .bar-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .bar-fill.bullish { background: #4CAF82; }
+    .bar-fill.bearish { background: #E25C5C; }
+    .bar-fill.neutral { background: var(--gold); }
+
+    /* ========== CONTACT PAGE ========== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin: 2rem 0;
+    }
+
+    .contact-form {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-silver);
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      background: var(--navy-deep);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      color: var(--text-white);
+      font-family: var(--font-main);
+      font-size: 0.9rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .contact-info-block {
+      margin-bottom: 2rem;
+    }
+
+    .contact-info-block .icon-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      color: var(--text-silver);
+      font-size: 0.95rem;
+    }
+
+    .contact-info-block .icon-row i {
+      color: var(--gold);
+      width: 20px;
+      text-align: center;
+    }
+
+    /* ========== FOOTER ========== */
+    .site-footer {
+      border-top: 1px solid var(--border-light);
+      padding: 2.5rem 0 1.5rem;
+      margin-top: auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-col ul li a {
+      color: var(--text-silver);
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--gold);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border-light);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer-bottom .risk-disclaimer {
+      max-width: 600px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1024px) {
+      .market-grid,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.6rem; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: var(--navy-deep);
+        border-bottom: 1px solid var(--border-light);
+        flex-direction: column;
+        padding: 1.5rem 24px;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .mobile-toggle {
+        display: block;
+      }
+
+      .nav-actions .btn-outline {
+        display: none;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .stats-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+    }
+
+    /* ========== DEMO BANNER ========== */
+    .demo-banner {
+      background: var(--gold-dim);
+      color: var(--navy-deep);
+      text-align: center;
+      padding: 0.3rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DEMO BANNER -->
+  <div class="demo-banner">
+    ⚠ DEMO MODE — Realistic data is for illustration only. Not live market data.
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="logo" data-page="home">
+        <i class="fas fa-chart-line"></i>
+        APEX<span>MARKETS</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#" data-page="home" class="active">Home</a>
+        <a href="#" data-page="membership">Membership</a>
+        <a href="#" data-page="about">About</a>
+        <a href="#" data-page="academy">Academy</a>
+        <a href="#" data-page="markets">Markets</a>
+        <a href="#" data-page="contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-outline btn-sm">Login</button>
+        <button class="btn btn-gold btn-sm">Register</button>
+        <button class="mobile-toggle" id="mobileToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <div class="container">
+
+      <!-- ========== HOME PAGE ========== -->
+      <section id="page-home" class="page active">
+        <div class="hero">
+          <span class="section-label">Institutional-grade intelligence</span>
+          <h1>Navigate Markets With <span class="gold-text">Precision</span> & <span class="gold-text">Intelligence</span></h1>
+          <p>Premium financial market education, research and analytics for traders and investors. Built in South Africa for a global audience.</p>
+          <div class="hero-actions">
+            <button class="btn btn-gold" data-page="membership">Explore Memberships</button>
+            <button class="btn btn-outline" data-page="academy">Start Learning Free</button>
+          </div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="value">12k+</div>
+            <div class="label">Active Members</div>
+          </div>
+          <div class="stat-card">
+            <div class="value">R2.4M</div>
+            <div class="label">Monthly Volume</div>
+          </div>
+          <div class="stat-card">
+            <div class="value">98%</div>
+            <div class="label">Retention Rate</div>
+          </div>
+          <div class="stat-card">
+            <div class="value">24/7</div>
+            <div class="label">Market Coverage</div>
+          </div>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <i class="fas fa-chart-pie"></i>
+            <h3>Market Intelligence</h3>
+            <p>Real-time data, sentiment analysis and institutional-grade research across forex, commodities and indices.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-graduation-cap"></i>
+            <h3>Trading Academy</h3>
+            <p>Structured learning from beginner to advanced. Video lessons, quizzes and certificates.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Risk Management</h3>
+            <p>Learn to protect capital with professional risk frameworks and position sizing tools.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-users"></i>
+            <h3>Member Community</h3>
+            <p>Connect with like-minded traders and investors. Exclusive webinars and analyst Q&A sessions.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== MEMBERSHIP PAGE ========== -->
+      <section id="page-membership" class="page">
+        <div class="page-header">
+          <span class="section-label">Membership</span>
+          <h2>Choose Your <span class="gold-text">Pathway</span></h2>
+          <p>Two distinct membership tracks — one for active traders, one for investors. All prices in ZAR per month.</p>
+        </div>
+
+        <div class="pricing-toggle">
+          <button class="active" id="traderToggle">Trader</button>
+          <button id="investorToggle">Investor</button>
+        </div>
+
+        <div class="pricing-grid" id="pricingGrid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- ========== ABOUT PAGE ========== -->
+      <section id="page-about" class="page">
+        <div class="page-header">
+          <span class="section-label">About</span>
+          <h2>Built for the <span class="gold-text">Modern</span> Market Participant</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="text-block">
+            <p>APEX MARKETS was founded with a single vision: to democratise institutional-grade financial intelligence for traders and investors across Africa and beyond.</p>
+            <p>We combine deep market expertise with cutting-edge technology to deliver a platform that rivals the world's leading fintech companies.</p>
+            <p>Headquartered in South Africa, our platform supports ZAR-based subscriptions and is built to scale internationally.</p>
+            <p>Whether you're a seasoned trader looking for an edge or a curious investor seeking to understand markets, APEX MARKETS provides the tools, education and community you need.</p>
+          </div>
+          <div class="about-image-placeholder">
+            <i class="fas fa-chart-bar"></i>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== ACADEMY PAGE ========== -->
+      <section id="page-academy" class="page">
+        <div class="page-header">
+          <span class="section-label">Academy</span>
+          <h2>Master the <span class="gold-text">Markets</span></h2>
+          <p>Structured learning paths from beginner to advanced. Some courses are free, others require membership.</p>
+        </div>
+
+        <div class="course-grid">
+          <div class="course-card">
+            <div class="course-thumb"><i class="fas fa-seedling"></i></div>
+            <div class="course-body">
+              <span class="level">Beginner</span>
+              <h3>Introduction to Forex</h3>
+              <p>Understand currency pairs, pips, spreads and how the forex market operates.</p>
+              <div class="course-meta">
+                <span><i class="far fa-clock"></i> 3 hours</span>
+                <span><i class="fas fa-lock-open"></i> Free</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="course-card">
+            <div class="course-thumb"><i class="fas fa-chart-line"></i></div>
+            <div class="course-body">
+              <span class="level">Intermediate</span>
+              <h3>Technical Analysis Masterclass</h3>
+              <p>Support & resistance, trend analysis, candlestick patterns and indicators.</p>
+              <div class="course-meta">
+                <span><i class="far fa-clock"></i> 8 hours</span>
+                <span><i class="fas fa-crown"></i> Starter+</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="course-card">
+            <div class="course-thumb"><i class="fas fa-brain"></i></div>
+            <div class="course-body">
+              <span class="level">Advanced</span>
+              <h3>Institutional Trading Concepts</h3>
+              <p>Liquidity, market structure, order flow and advanced price action.</p>
+              <div class="course-meta">
+                <span><i class="far fa-clock"></i> 12 hours</span>
+                <span><i class="fas fa-crown"></i> Pro+</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="course-card">
+            <div class="course-thumb"><i class="fas fa-shield-alt"></i></div>
+            <div class="course-body">
+              <span class="level">All Levels</span>
+              <h3>Risk Management & Psychology</h3>
+              <p>Protect your capital and master the mental game of trading.</p>
+              <div class="course-meta">
+                <span><i class="far fa-clock"></i> 5 hours</span>
+                <span><i class="fas fa-lock-open"></i> Free</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== MARKETS PAGE ========== -->
+      <section id="page-markets" class="page">
+        <div class="page-header">
+          <span class="section-label">Market Intelligence</span>
+          <h2>Live <span class="gold-text">Market</span> Overview</h2>
+          <p>Indicative prices and sentiment. Data is delayed and for demonstration purposes only.</p>
+        </div>
+
+        <div class="market-grid">
+          <div class="market-table-wrap">
+            <h3><i class="fas fa-globe"></i> Major Instruments</h3>
+            <table class="market-table">
+              <thead>
+                <tr>
+                  <th>Asset</th>
+                  <th>Price</th>
+                  <th>Change</th>
+                  <th>High</th>
+                  <th>Low</th>
+                </tr>
+              </thead>
+              <tbody id="marketTableBody">
+                <!-- JS populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sentiment-card">
+            <h3><i class="fas fa-heartbeat"></i> Market Sentiment</h3>
+
+            <div class="sentiment-bar">
+              <div class="label-row">
+                <span>EUR/USD</span>
+                <span>68% Bullish</span>
+              </div>
+              <div class="bar-bg"><div class="bar-fill bullish" style="width:68%"></div></div>
+            </div>
+
+            <div class="sentiment-bar">
+              <div class="label-row">
+                <span>GBP/USD</span>
+                <span>42% Bullish</span>
+              </div>
+              <div class="bar-bg"><div class="bar-fill bearish" style="width:42%"></div></div>
+            </div>
+
+            <div class="sentiment-bar">
+              <div class="label-row">
+                <span>Gold (XAU/USD)</span>
+                <span>75% Bullish</span>
+              </div>
+              <div class="bar-bg"><div class="bar-fill bullish" style="width:75%"></div></div>
+            </div>
+
+            <div class="sentiment-bar">
+              <div class="label-row">
+                <span>S&P 500</span>
+                <span>55% Bullish</span>
+              </div>
+              <div class="bar-bg"><div class="bar-fill neutral" style="width:55%"></div></div>
+            </div>
+
+            <div class="sentiment-bar">
+              <div class="label-row">
+                <span>USD/ZAR</span>
+                <span>62% Bearish</span>
+              </div>
+              <div class="bar-bg"><div class="bar-fill bearish" style="width:62%"></div></div>
+            </div>
+
+            <p style="font-size:0.75rem;color:var(--text-muted);margin-top:1.5rem;border-top:1px solid var(--border-light);padding-top:1rem;">
+              <i class="fas fa-info-circle"></i> Sentiment is derived from aggregated analyst views and price action.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== CONTACT PAGE ========== -->
+      <section id="page-contact" class="page">
+        <div class="page-header">
+          <span class="section-label">Contact</span>
+          <h2>Get in <span class="gold-text">Touch</span></h2>
+          <p>Our team is ready to assist you with membership, billing or general inquiries.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-form">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" placeholder="Your name">
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" placeholder="you@example.com">
+            </div>
+            <div class="form-group">
+              <label>Subject</label>
+              <select>
+                <option>Membership Inquiry</option>
+                <option>Billing & Payments</option>
+                <option>Technical Support</option>
+                <option>Partnership</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea placeholder="How can we help you?"></textarea>
+            </div>
+            <button class="btn btn-gold" style="width:100%;">Send Message</button>
+          </div>
+
+          <div>
+            <div class="contact-info-block">
+              <div class="icon-row">
+                <i class="fas fa-envelope"></i>
+                <span>support@apexmarkets.co.za</span>
+              </div>
+              <div class="icon-row">
+                <i class="fas fa-phone-alt"></i>
+                <span>+27 21 555 0142</span>
+              </div>
+              <div class="icon-row">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>V&A Waterfront, Cape Town, South Africa</span>
+              </div>
+              <div class="icon-row">
+                <i class="fas fa-clock"></i>
+                <span>Mon–Fri, 08:00 – 17:00 SAST</span>
+              </div>
+            </div>
+
+            <div style="background:var(--card-bg);border:1px solid var(--border-light);border-radius:12px;padding:1.5rem;">
+              <h4 style="margin-bottom:0.75rem;font-size:0.9rem;">Response Times</h4>
+              <p style="font-size:0.85rem;color:var(--text-silver);">
+                Membership and billing inquiries are typically answered within 4 business hours.
+                Technical support may take up to 24 hours.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo" style="font-size:1.3rem;">
+            <i class="fas fa-chart-line"></i>
+            APEX<span>MARKETS</span>
+          </div>
+          <p>Premium financial markets intelligence, education and membership platform. Built in South Africa.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="#" data-page="home">Home</a></li>
+            <li><a href="#" data-page="membership">Membership</a></li>
+            <li><a href="#" data-page="academy">Academy</a></li>
+            <li><a href="#" data-page="markets">Markets</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">POPIA Notice</a></li>
+            <li><a href="#">Risk Disclaimer</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#" data-page="contact">Contact Us</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Billing</a></li>
+            <li><a href="#">Status</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2025 APEX MARKETS (Pty) Ltd. All rights reserved.</div>
+        <div class="risk-disclaimer">
+          <strong>Risk Disclaimer:</strong> Trading forex and CFDs carries a high level of risk. Past performance is not indicative of future results. APEX MARKETS provides education and research only. We do not manage client funds.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== SQLITE DATABASE SETUP (in-browser demo via sql.js) ========== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+  <script>
+    (function() {
+      // ---------- NAVIGATION ----------
+      const pages = document.querySelectorAll('.page');
+      const navLinks = document.querySelectorAll('.nav-links a');
+      const mobileToggle = document.getElementById('mobileToggle');
+      const navMenu = document.getElementById('navLinks');
+
+      function showPage(pageId) {
+        pages.forEach(p => p.classList.remove('active'));
+        const target = document.getElementById('page-' + pageId);
+        if (target) target.classList.add('active');
+
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.dataset.page === pageId);
+        });
+
+        // Close mobile menu
+        navMenu.classList.remove('open');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Attach navigation to all elements with data-page
+      document.querySelectorAll('[data-page]').forEach(el => {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          showPage(el.dataset.page);
+        });
+      });
+
+      // Mobile toggle
+      mobileToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
+      });
+
+      // ---------- PRICING TOGGLE ----------
+      const traderToggle = document.getElementById('traderToggle');
+      const investorToggle = document.getElementById('investorToggle');
+      const pricingGrid = document.getElementById('pricingGrid');
+
+      const traderPlans = [
+        {
+          name: 'Starter',
+          price: '400',
+          description: 'Beginner trading education and essential market insights.',
+          features: [
+            'Beginner trading education',
+            'Basic market analysis',
+            'Selected educational videos',
+            'Basic economic calendar',
+            'Introductory technical analysis',
+            'Selected trading resources'
+          ]
+        },
+        {
+          name: 'Pro',
+          price: '800',
+          description: 'Everything in Starter plus intermediate education and premium commentary.',
+          features: [
+            'Everything in Starter',
+            'Intermediate trading education',
+            'Premium market commentary',
+            'Advanced technical analysis',
+            'Trading strategies',
+            'Additional market reports',
+            'Members-only educational webinars'
+          ]
+        },
+        {
+          name: 'Elite',
+          price: '1,500',
+          description: 'Advanced intelligence and institutional-style analysis for serious traders.',
+          features: [
+            'Everything in Pro',
+            'Advanced market intelligence',
+            'Institutional-style market analysis',
+            'Advanced trading education',
+            'Premium research reports',
+            'Advanced market sentiment analysis',
+            'Exclusive webinars',
+            'Priority community access'
+          ]
+        },
+        {
+          name: 'Institutional',
+          price: '2,000',
+          description: 'Full premium library, exclusive research and priority analyst access.',
+          features: [
+            'Everything in Elite',
+            'Full premium educational library',
+            'Exclusive market intelligence',
+            'Advanced research publications',
+            'Premium educational workshops',
+            'Priority analyst Q&A sessions',
+            'Exclusive member events'
+          ]
+        }
+      ];
+
+      const investorPlans = [
+        {
+          name: 'Starter',
+          price: '400',
+          description: 'Introduction to financial markets and basic investment education.',
+          features: [
+            'Introduction to financial markets',
+            'Investment education',
+            'Basic market updates',
+            'Economic fundamentals',
+            'Beginner investment resources'
+          ]
+        },
+        {
+          name: 'Plus',
+          price: '800',
+          description: 'Advanced financial education and sector analysis.',
+          features: [
+            'Everything in Starter',
+            'Advanced financial education',
+            'Market sector analysis',
+            'Economic research',
+            'Investment strategy education',
+            'Premium market commentary'
+          ]
+        },
+        {
+          name: 'Elite',
+          price: '1,500',
+          description: 'Global economic analysis and portfolio education.',
+          features: [
+            'Everything in Plus',
+            'Advanced market intelligence',
+            'Global economic analysis',
+            'Asset class research',
+            'Portfolio education',
+            'Exclusive research reports'
+          ]
+        },
+        {
+          name: 'Private',
+          price: '2,000',
+          description: 'Premium research, exclusive sessions and priority event access.',
+          features: [
+            'Everything in Elite',
+            'Premium financial research',
+            'Exclusive educational sessions',
+            'Advanced macroeconomic analysis',
+            'Premium market briefings',
+            'Priority access to educational events'
+          ]
+        }
+      ];
+
+      function renderPlans(plans, category) {
+        pricingGrid.innerHTML = plans.map(plan => `
+          <div class="price-card">
+            <div class="tier-name">${category} ${plan.name}</div>
+            <div class="price">R${plan.price}<span>/month</span></div>
+            <div class="description">${plan.description}</div>
+            <ul>
+              ${plan.features.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('')}
+            </ul>
+            <button class="btn btn-gold btn-sm" style="width:100%;">Choose ${plan.name}</button>
+          </div>
+        `).join('');
+      }
+
+      traderToggle.addEventListener('click', () => {
+        traderToggle.classList.add('active');
+        investorToggle.classList.remove('active');
+        renderPlans(traderPlans, 'Trader');
+      });
+
+      investorToggle.addEventListener('click', () => {
+        investorToggle.classList.add('active');
+        traderToggle.classList.remove('active');
+        renderPlans(investorPlans, 'Investor');
+      });
+
+      // Default
+      renderPlans(traderPlans, 'Trader');
+
+      // ---------- MARKET TABLE DATA ----------
+      const marketData = [
+        { asset: 'EUR/USD', price: '1.0842', change: '+0.32%', high: '1.0865', low: '1.0801', up: true },
+        { asset: 'GBP/USD', price: '1.2718', change: '-0.15%', high: '1.2750', low: '1.2689', up: false },
+        { asset: 'USD/JPY', price: '149.85', change: '+0.48%', high: '150.12', low: '149.30', up: true },
+        { asset: 'USD/ZAR', price: '18.6450', change: '-0.27%', high: '18.7200', low: '18.6100', up: false },
+        { asset: 'GBP/ZAR', price: '23.7100', change: '+0.12%', high: '23.7800', low: '23.6500', up: true },
+        { asset: 'Gold (XAU/USD)', price: '2,342.50', change: '+0.85%', high: '2,350.20', low: '2,318.70', up: true },
+        { asset: 'Silver (XAG/USD)', price: '27.84', change: '-0.42%', high: '28.10', low: '27.65', up: false },
+        { asset: 'Crude Oil (WTI)', price: '78.35', change: '+1.12%', high: '78.80', low: '77.20', up: true },
+        { asset: 'S&P 500', price: '5,245.80', change: '+0.28%', high: '5,252.10', low: '5,221.40', up: true },
+        { asset: 'NASDAQ', price: '18,340.20', change: '+0.65%', high: '18,380.50', low: '18,210.90', up: true },
+        { asset: 'FTSE 100', price: '8,120.40', change: '-0.18%', high: '8,145.00', low: '8,095.60', up: false },
+        { asset: 'Bitcoin (BTC/USD)', price: '63,420.00', change: '+2.35%', high: '63,980.00', low: '61,800.00', up: true }
+      ];
+
+      const tbody = document.getElementById('marketTableBody');
+      if (tbody) {
+        tbody.innerHTML = marketData.map(row => `
+          <tr>
+            <td class="asset-name">${row.asset}</td>
+            <td>${row.price}</td>
+            <td class="${row.up ? 'up' : 'down'}">${row.change}</td>
+            <td>${row.high}</td>
+            <td>${row.low}</td>
+          </tr>
+        `).join('');
+      }
+
+      // ---------- SQLITE DATABASE (In-Browser Demo) ----------
+      // This demonstrates the database schema and seeds demo data.
+      // In production this would be a server-side PostgreSQL database.
+
+      let dbReady = false;
+
+      async function initDatabase() {
+        try {
+          const SQL = await initSqlJs({
+            locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
+          });
+
+          const db = new SQL.Database();
+
+          // Create tables matching the platform's data model
+          db.run(`
+            CREATE TABLE users (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              email TEXT UNIQUE NOT NULL,
+              password_hash TEXT NOT NULL,
+              full_name TEXT,
+              role TEXT DEFAULT 'registered_free',
+              created_at TEXT DEFAULT CURRENT_TIMESTAMP
+            );
+
+            CREATE TABLE membership_categories (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              name TEXT NOT NULL,
+              slug TEXT UNIQUE NOT NULL
+            );
+
+            CREATE TABLE subscription_plans (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              category_id INTEGER REFERENCES membership_categories(id),
+              name TEXT NOT NULL,
+              price_zar INTEGER NOT NULL,
+              features_json TEXT
+            );
+
+            CREATE TABLE user_subscriptions (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              user_id INTEGER REFERENCES users(id),
+              plan_id INTEGER REFERENCES subscription_plans(id),
+              status TEXT DEFAULT 'active',
+              started_at TEXT DEFAULT CURRENT_TIMESTAMP,
+              expires_at TEXT
+            );
+
+            CREATE TABLE courses (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              title TEXT NOT NULL,
+              level TEXT,
+              description TEXT,
+              is_free INTEGER DEFAULT 0,
+              required_tier TEXT
+            );
+
+            CREATE TABLE economic_events (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              event_name TEXT NOT NULL,
+              country TEXT,
+              release_date TEXT,
+              impact_level TEXT,
+              previous_value TEXT,
+              forecast_value TEXT,
+              actual_value TEXT
+            );
+
+            CREATE TABLE market_analysis (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              title TEXT NOT NULL,
+              asset TEXT,
+              content TEXT,
+              published_at TEXT DEFAULT CURRENT_TIMESTAMP,
+              analyst_name TEXT,
+              tier_required TEXT
+            );
+          `);
+
+          // Seed demo data
+          db.run(`
+            INSERT INTO membership_categories (name, slug) VALUES
+              ('Trader', 'trader'),
+              ('Investor', 'investor');
+
+            INSERT INTO subscription_plans (category_id, name, price_zar, features_json) VALUES
+              (1, 'Trader Starter', 400, '["Beginner trading education","Basic market analysis","Selected educational videos","Basic economic calendar"]'),
+              (1, 'Trader Pro', 800, '["Everything in Starter","Intermediate trading education","Premium market commentary","Advanced technical analysis"]'),
+              (1, 'Trader Elite', 1500, '["Everything in Pro","Advanced market intelligence","Institutional-style analysis","Premium research reports"]'),
+              (1, 'Trader Institutional', 2000, '["Everything in Elite","Full premium library","Exclusive market intelligence","Priority analyst Q&A"]'),
+              (2, 'Investor Starter', 400, '["Introduction to financial markets","Investment education","Basic market updates","Economic fundamentals"]'),
+              (2, 'Investor Plus', 800, '["Everything in Starter","Advanced financial education","Market sector analysis","Economic research"]'),
+              (2, 'Investor Elite', 1500, '["Everything in Plus","Advanced market intelligence","Global economic analysis","Asset class research"]'),
+              (2, 'Investor Private', 2000, '["Everything in Elite","Premium financial research","Exclusive educational sessions","Priority access to events"]');
+
+            INSERT INTO users (email, password_hash, full_name, role) VALUES
+              ('demo@apexmarkets.co.za', 'hashed_demo_password', 'Demo Member', 'trader_member'),
+              ('admin@apexmarkets.co.za', 'hashed_admin_password', 'Admin User', 'super_administrator');
+
+            INSERT INTO courses (title, level, description, is_free, required_tier) VALUES
+              ('Introduction to Forex', 'Beginner', 'Understand currency pairs, pips, spreads and sessions.', 1, NULL),
+              ('Technical Analysis Masterclass', 'Intermediate', 'Support & resistance, trend analysis, candlestick patterns.', 0, 'Trader Starter'),
+              ('Institutional Trading Concepts', 'Advanced', 'Liquidity, market structure, order flow and price action.', 0, 'Trader Pro'),
+              ('Risk Management & Psychology', 'All Levels', 'Protect capital and master the mental game of trading.', 1, NULL);
+
+            INSERT INTO economic_events (event_name, country, release_date, impact_level, previous_value, forecast_value, actual_value) VALUES
+              ('Non-Farm Payrolls', 'US', '2025-04-04 13:30', 'high', '275K', '200K', '—'),
+              ('CPI y/y', 'US', '2025-04-10 13:30', 'high', '3.2%', '3.0%', '—'),
+              ('Interest Rate Decision', 'EU', '2025-04-17 12:45', 'high', '4.50%', '4.25%', '—'),
+              ('GDP q/q', 'UK', '2025-04-12 07:00', 'medium', '0.3%', '0.4%', '—'),
+              ('SARB Repo Rate', 'ZA', '2025-05-29 15:00', 'high', '8.25%', '8.00%', '—');
+          `);
+
+          dbReady = true;
+          console.log('SQLite database initialised with demo data.');
+
+          // Expose for potential further use (e.g., query demos)
+          window.__APEX_DB = db;
+
+        } catch (err) {
+          console.error('SQLite init error:', err);
+        }
+      }
+
+      // Initialise database when script loads
+      initDatabase();
+
+    })();
+  </script>
+
+</body>
+</html>
